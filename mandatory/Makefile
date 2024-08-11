@@ -16,7 +16,7 @@ NAME = ../cub3D
 	@$(CC) $(FLAGS) -I$(INCLUDE) -I$(MLX_INCLUDE) -c $< -o $@
 
 $(NAME): $(MLX_AR) $(OBJS) $(INCLUDE)
-	@$(CC) $(FLAGS) $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_AR) $(GLFW_LINUX) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_MACOS) $(MLX_AR) $(GLFW) -o $(NAME)
 	@echo "Program Compiled successfully."
 
 clean:
