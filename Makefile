@@ -37,6 +37,8 @@ $(NAME): $(INCLUDE) $(OBJS)
 	make -C mandatory
 clean:
 	make clean -C mandatory
+	make clean -C libr
 fclean: clean
 	rm -rf $(NAME) $(NAME_BON)
+	make fclean -C libr
 re: fclean all
