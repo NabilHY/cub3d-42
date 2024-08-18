@@ -3,6 +3,10 @@
 		"*.ejs": "html",
 		"*.html": "html",
 		"*.php": "php",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }

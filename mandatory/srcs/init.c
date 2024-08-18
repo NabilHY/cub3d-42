@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:33:42 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/11 12:59:42 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/18 19:15:06 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,81 +15,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define WIDTH 512
-#define HEIGHT 512
 
-static mlx_image_t	*image;
 
-// -----------------------------------------------------------------------------
-
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+/*
+*/
+int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
-
-void	ft_randomize(void *param)
+void	fill_tile(mlx_image_t *tile, int color)
 {
-	(void)param;
-	for (uint32_t i = 0; i < image->width; ++i)
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < TILE_SIZE)
 	{
-		for (uint32_t y = 0; y < image->height; ++y)
+		while (y < TILE_SIZE)
 		{
-			uint32_t color = ft_pixel(rand() % 0xFF, // R
-										rand() % 0xFF, // G
-										rand() % 0xFF, // B
-										rand() % 0xFF  // A
-			);
-			mlx_put_pixel(image, i, y, color);
+			mlx_put_pixel(tile, x, y, color);
+			y++;
 		}
+		x++;
 	}
 }
 
-void	ft_hook(void *param)
+int	init(t_mlx *mlx)
 {
-	mlx_t	*mlx;
+	int	x;
+	int	y;
 
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
-}
+	x = 0;
+	y = 0;
 
-// -----------------------------------------------------------------------------
-
-int32_t	init(void)
-{
-	mlx_t *mlx;
-
-	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-	{
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	if (!(image = mlx_new_image(mlx, 128, 128)))
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-
-	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
-
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	mlx->mlx_ptr = mlx_init(WIDTH, HEIGHT, "Cub3d", true);
+	//mlx->wall_tile = mlx_new_image(mlx->mlx_ptr, TILE_SIZE, TILE_SIZE);
+	//mlx->free_tile = mlx_new_image(mlx->mlx_ptr, TILE_SIZE, TILE_SIZE);
+	//fill_tile(mlx->wall_tile, get_rgba(60, 60, 60, 255));
+	//fill_tile(mlx->wall_tile, get_rgba(240, 240, 240, 255));
+	//draw_map(mlx);
+	mlx_loop(mlx->mlx_ptr);
+	mlx_terminate(mlx->mlx_ptr);
 	return (EXIT_SUCCESS);
 }

@@ -1,7 +1,8 @@
 cc = CC
 FLAGS = -Wall -Wextra -Werror -O3
 ENTRY = cub3d.c
-SRCS =	./srcs/init.c
+SRCS =	./srcs/init.c \
+./srcs/map.c
 INCLUDE = .
 OBJS = $(SRCS:%.c=%.o)
 MLX_MACOS = -framework Cocoa -framework OpenGL -framework IOKit
@@ -16,7 +17,7 @@ NAME = ../cub3D
 	@$(CC) $(FLAGS) -I$(INCLUDE) -I$(MLX_INCLUDE) -c $< -o $@
 
 $(NAME): $(MLX_AR) $(OBJS) $(INCLUDE)
-	@$(CC) $(FLAGS) $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_MACOS) $(MLX_AR) $(GLFW) -o $(NAME)
+	@$(CC) $(FLAGS) -fsanitize=address $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_MACOS) $(MLX_AR) $(GLFW) -o $(NAME)
 	@echo "Program Compiled successfully."
 
 clean:

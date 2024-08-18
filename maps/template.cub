@@ -1,9 +1,0 @@
-NO - Path to north_texture
-SO - Path to south_texture
-WE - Path to west_texture
-EA - Path to east_texture
-
-F - Floor Color rgb [0,255]
-C - Ceiling color rgb [0,255]
-
-=== MAP ===

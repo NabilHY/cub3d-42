@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/18 18:10:25 by nhayoun          ###   ########.fr       */
+/*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
+/*   Updated: 2024/08/15 17:09:20 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	main(void)
+//void	put_line(t_mlx *mlx, int x, int y)
+//{
+//	//while (x > 0)
+//	//{
+//	//	mlx_put_pixel(mlx->img, x, y, 55);
+//	//	x--;
+//	//}
+//}
+
+void	draw_map(t_mlx *mlx)
 {
-	t_mlx mlx;
-	t_data data;
+	int	x;
+	int	y;
 
-	mlx.data = &data;
-	// init_data(&data);
-	init(&mlx);
-	return (0);
+	x = 0;
+	while (x < WIDTH - 1)
+	{
+		y = HEIGHT - 1;
+		x += TILE_SIZE;
+		while (y > 0)
+		{
+			mlx_put_pixel(mlx->img, x, y, 0);
+			y--;
+		}
+	}
 }
