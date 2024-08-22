@@ -6,11 +6,42 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/21 13:14:42 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/22 16:23:32 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	player_position(t_data *data)
+{
+	int		i;
+	int		j;
+	char	**map;
+
+	i = 0;
+	map = data->map;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j])
+			{
+				if (map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'S'
+					|| map[i][j] == 'E')
+				{
+					data->p_x = j * TILE_SIZE;
+					data->p_y = i * TILE_SIZE;
+					data->p_direction = map[i][j];
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	data->p_x += TILE_SIZE / 2;
+	data->p_y += TILE_SIZE / 2;
+}
 
 void	mock_data(t_data *data)
 {
@@ -26,10 +57,15 @@ void	mock_data(t_data *data)
 	data->map[8] = ft_strdup("11000000110101011100000010001");
 	data->map[9] = ft_strdup("10000000000000001100000010001");
 	data->map[10] = ft_strdup("10000000000000001101010010001");
-	data->map[11] = ft_strdup("11000001110101011111011110N0111");
+	data->map[11] = ft_strdup("11000001110101011111011110W0111");
 	data->map[12] = ft_strdup("11110111 1110101 101111010001");
 	data->map[13] = ft_strdup("11111111 1111111 111111111111");
 	data->map[14] = NULL;
+	player_position(data);
+	data->h_map = 14;
+	data->w_map = 33;
+	printf("Player is at position x: %f y: %f with %c direction", data->p_x,
+		data->p_y, data->p_direction);
 }
 
 int	main(void)
@@ -39,6 +75,7 @@ int	main(void)
 	mock_data(&data);
 	data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 	draw_map(&data);
+	spawn_player(&data);
 	mlx_loop(data.mlx_ptr);
 	mlx_terminate(data.mlx_ptr);
 	// init_data(&data);

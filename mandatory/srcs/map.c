@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/21 15:27:43 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/22 15:55:21 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+double	scaling_value(double ival, double omin, double omax, double imax)
+{
+	return ((omax - omin) * (ival - 0) / (imax - 0) + omin);
 }
 
 void	draw_grid_lines(mlx_image_t *tile, int pos_x, int pos_y, int color)
@@ -72,8 +77,61 @@ void	draw_row(char *str, t_data *data, int y_pos)
 			fill_tile(data->img, get_rgba(0, 0, 0, 255), x_pos, y_pos);
 		else if (str[i] == '0')
 			fill_tile(data->img, get_rgba(255, 255, 255, 255), x_pos, y_pos);
+		else if (str[i] == 'W' || str[i] == 'N' || str[i] == 'E'
+			|| str[i] == 'S')
+			fill_tile(data->img, get_rgba(255, 255, 255, 255), x_pos, y_pos);
 		x_pos += TILE_SIZE;
 		i++;
+	}
+}
+
+void	spawn_player(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	if (data->p_direction == 'N' || data->p_direction == 'S')
+	{
+		x = -6;
+		while (x++ < 5)
+			mlx_put_pixel(data->img, data->p_x + x, data->p_y, get_rgba(52, 205,
+					52, 255));
+		if (data->p_direction == 'S')
+		{
+			y = 0;
+			while (y++ < 10)
+				mlx_put_pixel(data->img, data->p_x, data->p_y + y, get_rgba(52,
+						205, 52, 255));
+		}
+		else
+		{
+			y = 0;
+			while (y++ < 10)
+				mlx_put_pixel(data->img, data->p_x, data->p_y - y, get_rgba(52,
+						205, 52, 255));
+		}
+	}
+	if (data->p_direction == 'W' || data->p_direction == 'E')
+	{
+		y = -6;
+		while (y++ < 5)
+			mlx_put_pixel(data->img, data->p_x , data->p_y + y, get_rgba(52, 205,
+					52, 255));
+		if (data->p_direction == 'E')
+		{
+			x = 0;
+			while (x++ < 10)
+				mlx_put_pixel(data->img, data->p_x + x, data->p_y, get_rgba(52,
+						205, 52, 255));
+		}
+		else
+		{
+			x = 0;
+			while (x++ < 10)
+				mlx_put_pixel(data->img, data->p_x - x, data->p_y, get_rgba(52,
+						205, 52, 255));
+		}
 	}
 }
 

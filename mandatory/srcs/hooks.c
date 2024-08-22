@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 12:33:42 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/22 12:01:36 by nhayoun          ###   ########.fr       */
+/*   Created: 2024/08/22 16:14:26 by nhayoun           #+#    #+#             */
+/*   Updated: 2024/08/22 16:29:14 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+
+void	keyhooks_(mlx_key_data_t keydata, void *param)
+{
+	t_data *data;
+
+	data = (t_data *)param;
+	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
+	{
+		
+	}
+}
