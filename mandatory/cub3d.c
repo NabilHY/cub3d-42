@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/22 16:23:32 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/23 11:44:52 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,25 @@ void	mock_data(t_data *data)
 	data->map[8] = ft_strdup("11000000110101011100000010001");
 	data->map[9] = ft_strdup("10000000000000001100000010001");
 	data->map[10] = ft_strdup("10000000000000001101010010001");
-	data->map[11] = ft_strdup("11000001110101011111011110W0111");
+	data->map[11] = ft_strdup("11000001110101011111011110N0111");
 	data->map[12] = ft_strdup("11110111 1110101 101111010001");
 	data->map[13] = ft_strdup("11111111 1111111 111111111111");
 	data->map[14] = NULL;
 	player_position(data);
+	if (data->p_direction == 'W')
+		data->rot_angle = M_PI;
+	if (data->p_direction == 'S')
+		data->rot_angle = M_PI / 2 + M_PI;
+	if (data->p_direction == 'E')
+		data->rot_angle = 0;
+	if (data->p_direction == 'N')
+		data->rot_angle = M_PI / 2;
 	data->h_map = 14;
 	data->w_map = 33;
+	data->p_radius = 3;
+	// data->turn_dire = 0;
+	data->move_speed = 2.0;
+	data->rot_speed = 2 * (M_PI / 180);
 	printf("Player is at position x: %f y: %f with %c direction", data->p_x,
 		data->p_y, data->p_direction);
 }
@@ -75,7 +87,7 @@ int	main(void)
 	mock_data(&data);
 	data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 	draw_map(&data);
-	spawn_player(&data);
+	mlx_key_hook(data.mlx_ptr, keyhooks, (void *)&data);
 	mlx_loop(data.mlx_ptr);
 	mlx_terminate(data.mlx_ptr);
 	// init_data(&data);

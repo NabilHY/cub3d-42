@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/22 15:55:21 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/25 16:05:15 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,51 +87,13 @@ void	draw_row(char *str, t_data *data, int y_pos)
 
 void	spawn_player(t_data *data)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	if (data->p_direction == 'N' || data->p_direction == 'S')
+	mlx_put_pixel(data->img, data->p_x, data->p_y, get_rgba(0, 255, 0, 255));
+	int x = 0;
+	while (x < 10)
 	{
-		x = -6;
-		while (x++ < 5)
-			mlx_put_pixel(data->img, data->p_x + x, data->p_y, get_rgba(52, 205,
-					52, 255));
-		if (data->p_direction == 'S')
-		{
-			y = 0;
-			while (y++ < 10)
-				mlx_put_pixel(data->img, data->p_x, data->p_y + y, get_rgba(52,
-						205, 52, 255));
-		}
-		else
-		{
-			y = 0;
-			while (y++ < 10)
-				mlx_put_pixel(data->img, data->p_x, data->p_y - y, get_rgba(52,
-						205, 52, 255));
-		}
-	}
-	if (data->p_direction == 'W' || data->p_direction == 'E')
-	{
-		y = -6;
-		while (y++ < 5)
-			mlx_put_pixel(data->img, data->p_x , data->p_y + y, get_rgba(52, 205,
-					52, 255));
-		if (data->p_direction == 'E')
-		{
-			x = 0;
-			while (x++ < 10)
-				mlx_put_pixel(data->img, data->p_x + x, data->p_y, get_rgba(52,
-						205, 52, 255));
-		}
-		else
-		{
-			x = 0;
-			while (x++ < 10)
-				mlx_put_pixel(data->img, data->p_x - x, data->p_y, get_rgba(52,
-						205, 52, 255));
-		}
+		mlx_put_pixel(data->img, data->p_x + x, data->p_y + x, get_rgba(0, 255, 0,
+				255));
+		x++;
 	}
 }
 
@@ -163,5 +125,6 @@ void	draw_map(t_data *data)
 	map = data->map;
 	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	map_render(data);
+	spawn_player(data);
 	mlx_image_to_window(data->mlx_ptr, data->img, 0, 0);
 }

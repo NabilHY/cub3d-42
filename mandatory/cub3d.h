@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/22 14:51:14 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/25 12:08:16 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ void			map_render(t_data *data);
 void			spawn_player(t_data *data);
 double			scaling_value(double ival, double omin, double omax,
 					double imax);
+
+/* Hooks */
+void			keyhooks(mlx_key_data_t keydata, void *param);
 
 #endif
