@@ -3,7 +3,8 @@ FLAGS = -Wall -Wextra -Werror -O3
 ENTRY = cub3d.c
 SRCS =	./srcs/init.c \
 ./srcs/map.c \
-./srcs/hooks.c
+./srcs/hooks.c \
+./srcs/raycast.c
 INCLUDE = .
 OBJS = $(SRCS:%.c=%.o)
 MLX_MACOS = -framework Cocoa -framework OpenGL -framework IOKit

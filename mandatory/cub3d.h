@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/25 12:08:16 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/26 16:20:50 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	char		**map;
 	double		p_x;
 	double		p_y;
+	double		p_x1;
+	double		p_y1;
 	double		p_radius;
 	double		turn_dire;
 	double		walk_dire;
@@ -41,12 +43,13 @@ typedef struct s_data
 	int			h_map;
 }				t_data;
 
-int				init(t_data *data);
 void			draw_map(t_data *data);
 void			map_render(t_data *data);
 void			spawn_player(t_data *data);
 double			scaling_value(double ival, double omin, double omax,
 					double imax);
+void			end_point(t_data *data);
+int				get_rgba(int r, int g, int b, int a);
 
 /* Hooks */
 void			keyhooks(mlx_key_data_t keydata, void *param);

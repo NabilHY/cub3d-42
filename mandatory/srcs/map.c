@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/25 16:05:15 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/26 15:31:27 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,6 @@ void	draw_row(char *str, t_data *data, int y_pos)
 void	spawn_player(t_data *data)
 {
 	mlx_put_pixel(data->img, data->p_x, data->p_y, get_rgba(0, 255, 0, 255));
-	int x = 0;
-	while (x < 10)
-	{
-		mlx_put_pixel(data->img, data->p_x + x, data->p_y + x, get_rgba(0, 255, 0,
-				255));
-		x++;
-	}
 }
 
 void	map_render(t_data *data)
@@ -126,5 +119,6 @@ void	draw_map(t_data *data)
 	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	map_render(data);
 	spawn_player(data);
+	end_point(data);
 	mlx_image_to_window(data->mlx_ptr, data->img, 0, 0);
 }
