@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/26 15:31:27 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/08/28 11:56:33 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,26 @@ void	map_render(t_data *data)
 	}
 }
 
+void    draw_line(t_data *data, double distance)
+{
+	double rad;
+	double dx;
+	double dy;
+	int i;
+
+	i = 1;
+	rad = data->rot_angle;
+	while (i <= distance)
+	{
+		dx = i * cos(rad);
+		dy = i * sin(rad);
+		data->p_x1 = data->p_x + dx;
+		data->p_y1 = data->p_y + dy;
+		mlx_put_pixel(data->img, (int)data->p_x1, (int)data->p_y1, get_rgba(255, 0, 0, 255));
+		i++;
+	}
+}
+
 void	draw_map(t_data *data)
 {
 	int		x;
@@ -119,6 +139,7 @@ void	draw_map(t_data *data)
 	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	map_render(data);
 	spawn_player(data);
-	end_point(data);
+	//end_point(data);
+	draw_line(data, 40.00);
 	mlx_image_to_window(data->mlx_ptr, data->img, 0, 0);
 }
