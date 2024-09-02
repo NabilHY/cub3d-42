@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/26 16:20:50 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/02 13:10:31 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define WIDTH 1200
 # define HEIGHT 800
 # define TILE_SIZE 30
+# define RES 1800
 
 typedef struct s_data
 {
@@ -48,8 +49,12 @@ void			map_render(t_data *data);
 void			spawn_player(t_data *data);
 double			scaling_value(double ival, double omin, double omax,
 					double imax);
-void			end_point(t_data *data);
+void			end_point(t_data *data, double rad);
 int				get_rgba(int r, int g, int b, int a);
+// void			draw_line(t_data *data, double distance);
+int				in_space(t_data *data);
+int				ray_in_space(t_data *data, double p_x1, double p_x2);
+int				ray_in_corner(t_data *data, double p_x, double p_y);
 
 /* Hooks */
 void			keyhooks(mlx_key_data_t keydata, void *param);

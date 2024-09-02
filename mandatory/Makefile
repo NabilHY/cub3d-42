@@ -20,7 +20,7 @@ NAME = ../cub3D
 	@$(CC) $(FLAGS) -I$(INCLUDE) -I$(MLX_INCLUDE) -c $< -o $@
 
 $(NAME): $(MLX_AR) $(OBJS) $(INCLUDE)
-	@$(CC) $(FLAGS) -fsanitize=address $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_AR) $(LIBR) $(GLFW_LINUX) -o $(NAME)
+	@$(CC) $(FLAGS) -fsanitize=address $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_AR) $(MLX_MACOS) $(LIBR) $(GLFW) -o $(NAME)
 	@echo "Program Compiled successfully."
 
 clean:

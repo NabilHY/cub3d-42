@@ -3,7 +3,8 @@ FLAGS = -Wall -Wextra -Werror -O3
 ENTRY = ./mandatory/cub3d.c
 SRCS =	./mandatory/srcs/init.c \
 ./mandatory/srcs/map.c \
-./mandatory/srcs/hooks.c
+./mandatory/srcs/hooks.c \
+./mandatory/srcs/raycast.c
 OBJS = $(SRCS:%.c=%.o)
 OBJS_BON = $(SRCS_BON:%.c=%.o)
 INCLUDE = ./mandatory/cub3d.h
