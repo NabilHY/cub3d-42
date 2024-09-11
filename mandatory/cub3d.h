@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 12:43:47 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:39:30 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define WIDTH 1200
 # define HEIGHT 800
 # define TILE_SIZE 30
-# define NOR 3
+# define NOR 1800
 
 # define LEFT 1
 # define RIGHT 2

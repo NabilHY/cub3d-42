@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 12:39:35 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 15:52:56 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	mock_data(t_data *data)
 	// data->map = malloc(sizeof(char *) * 15);
 	// data->map[0] = ft_strdup("        1111111111111111111111111");
 	// data->map[1] = ft_strdup("        1000000000000000000000001");
-	// data->map[2] = ft_strdup("        1000000000000000000000001");
-	// data->map[3] = ft_strdup("        1000000000000000000000001");
-	// data->map[4] = ft_strdup("111111111000000000000000000000001");
+	// data->map[2] = ft_strdup("        1000000000100000000000001");
+	// data->map[3] = ft_strdup("        1000000001010000000000001");
+	// data->map[4] = ft_strdup("111111111000000000100000000000001");
 	// data->map[5] = ft_strdup("100000000000000000000000000111111");
 	// data->map[6] = ft_strdup("10000000000000N0000000010001");
 	// data->map[7] = ft_strdup("10000000000000000000000000001");
@@ -90,8 +90,8 @@ void	mock_data(t_data *data)
 	// data->w_map = 33;
 	data->p_radius = 60;
 	// data->dire = 0;
-	data->move_speed = 10;
-	data->rot_speed = 2 * (M_PI / 180);
+	data->move_speed = 5;
+	data->rot_speed = 10 * (M_PI / 180);
 	// printf("Player is at position x: %f y: %f with %c direction ,,,,
 	// fkn shit:
 	//	%f \n", data->p_x, data->p_y, data->p_direction, data->rot_angle);

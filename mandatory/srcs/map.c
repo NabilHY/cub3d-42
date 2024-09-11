@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 13:29:59 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:55:06 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,10 +284,13 @@ double	hor_intersections(t_data *data, double deg, int *hit_wall)
 	while (data->next_h_x <= WIDTH && data->next_h_x >= 0
 		&& data->next_h_y <= HEIGHT && data->next_h_y >= 0)
 	{
-		draw_point(data, data->next_h_x, data->next_h_y, get_rgba(255, 0, 255,
-				255));
-		if (has_wall(data, data->next_h_x, data->next_h_y))
+		if (has_wall(data, data->next_h_x, data->next_h_y) || has_wall(data,
+				data->next_h_x + 1, data->next_h_y) || has_wall(data,
+				data->next_h_x, data->next_h_y + 1))
 		{
+			// draw_point(data, data->next_h_x, data->next_h_y, get_rgba(255, 0,
+			// 255,
+			//	255));
 			*hit_wall = 1;
 			data->hor_hit_x = data->next_h_x;
 			data->hor_hit_y = data->next_h_y;
@@ -316,9 +319,11 @@ double	ver_intersections(t_data *data, double deg, int *hit_wall)
 	while (data->next_v_x <= WIDTH && data->next_v_x >= 0
 		&& data->next_v_y <= HEIGHT && data->next_v_y >= 0)
 	{
-		draw_point(data, data->next_v_x, data->next_v_y, get_rgba(0, 0, 255,
-				255));
-		if (has_wall(data, data->next_v_x, data->next_v_y))
+		// draw_point(data, data->next_v_x, data->next_v_y, get_rgba(0, 0, 255,
+		//		255));
+		if (has_wall(data, data->next_v_x, data->next_v_y) || has_wall(data,
+				data->next_v_x + 1, data->next_v_y) || has_wall(data,
+				data->next_v_x, data->next_v_y + 1))
 		{
 			*hit_wall = 1;
 			data->ver_hit_x = data->next_v_x;
@@ -346,10 +351,6 @@ void	set_intersections(t_data *data, double deg)
 	found_ver_wall = 0;
 	first_hor_intersection(data, deg);
 	first_ver_intersection(data, deg);
-	if (first_inter_hit_wall(data))
-		printf("No ray through\n");
-	else
-		printf("ray through\n");
 	hor_intersections(data, deg, &found_hor_wall);
 	ver_intersections(data, deg, &found_ver_wall);
 	if (found_hor_wall)

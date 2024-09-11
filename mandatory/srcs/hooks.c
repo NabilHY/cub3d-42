@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:14:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 12:21:56 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:59:51 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	normalized_angle(double angle)
 	angle = fmod(angle, 2 * M_PI);
 	if (angle < 0)
 		angle += 2 * M_PI;
-	//printf("normalized angle %f == %f deg\n", angle, angle * 180 / M_PI);
+	// printf("normalized angle %f == %f deg\n", angle, angle * 180 / M_PI);
 	return (angle);
 }
 
@@ -107,7 +107,8 @@ void	keyhooks(mlx_key_data_t keydata, void *param)
 			data->rot_angle += data->rot_speed;
 			normalize_angle(data);
 		}
-		if (in_space(data))
+		if (in_space(data) && (!has_wall(data, data->p_x + 1, data->p_y)
+				|| !has_wall(data, data->p_x, data->p_y + 1)))
 		{
 			if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS
 					|| keydata.action == MLX_REPEAT))
