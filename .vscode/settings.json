@@ -10,6 +10,7 @@
 		"vector": "c",
 		"cub3d.h": "c",
 		"libr.h": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"complex": "c"
 	}
 }

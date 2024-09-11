@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map12.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 13:29:59 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:50:48 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@ void	draw_point(t_data *data, int x, int y, int color);
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-int	first_inter_hit_wall(t_data *data)
-{
-	if (has_wall(data, data->first_h_x, data->first_h_y) || has_wall(data,
-			data->first_v_x, data->first_v_y))
-		return (1);
-	return (0);
 }
 
 int	has_wall(t_data *data, double x, double y)
@@ -42,18 +34,6 @@ int	has_wall(t_data *data, double x, double y)
 		|| map[j][i] == '1')
 		return (1);
 	return (0);
-}
-
-double	row_len(t_data *data, double x)
-{
-	char	**map;
-	int		i;
-
-	map = data->map;
-	if (x < 0)
-		return (0);
-	i = (int)(x / TILE_SIZE);
-	return ((double)ft_strlen(map[i]) * TILE_SIZE);
 }
 
 double	scaling_value(double ival, double omin, double omax, double imax)
@@ -163,11 +143,11 @@ int	initial_tile(t_data *data, double p_x1, double p_y1)
 
 void	print_dirs(t_data *data)
 {
-	if (data->ray_h_dire == LEFT)
+	if (data->h_dire == LEFT)
 		printf("Ray Left\n");
 	else
 		printf("Ray Right\n");
-	if (data->ray_v_dire == UP)
+	if (data->v_dire == UP)
 		printf("Ray Up\n");
 	else
 		printf("Ray Down\n");
@@ -197,6 +177,10 @@ double	cast_ray(t_data *data, double ray_deg)
 	y_inc = dy / step;
 	while (i <= step)
 	{
+		// if (has_wall(data, p_x, p_y))
+		//	break ;
+		// if (!ray_in_space(data, p_x, p_y))
+		//	break ;
 		mlx_put_pixel(data->img, (int)(round(p_x)), (int)(round(p_y)),
 			get_rgba(255, 0, 0, 255));
 		p_x += x_inc;
@@ -206,9 +190,91 @@ double	cast_ray(t_data *data, double ray_deg)
 	return (0);
 }
 
-double	pethago_distance(double x2, double x1, double y2, double y1)
+double	cast_ray2(t_data *data, double ray_deg, double x, double y)
 {
-	if ((isinf(x1) || isinf(x2) || isinf(y1) || isinf(y2)))
+	double	dx;
+	double	dy;
+	double	step;
+	double	p_x;
+	double	p_y;
+	double	x_inc;
+	double	y_inc;
+	int		i;
+
+	i = 0;
+	p_x = data->p_x;
+	p_y = data->p_y;
+	dx = x - data->p_x;
+	dy = y - data->p_y;
+	if (fabs(dx) > fabs(dy))
+		step = fabs(dx);
+	else
+		step = fabs(dy);
+	x_inc = dx / step;
+	y_inc = dy / step;
+	while (i <= step)
+	{
+		// if (has_wall(data, p_x, p_y))
+		//	break ;
+		// if (!ray_in_space(data, p_x, p_y))
+		//	break ;
+		mlx_put_pixel(data->img, (int)(round(p_x)), (int)(round(p_y)),
+			get_rgba(0, 255, 0, 255));
+		p_x += x_inc;
+		p_y += y_inc;
+		i++;
+	}
+	return (0);
+}
+
+void	first_interaction(t_data *data, double deg)
+{
+	double	hor_dist;
+	double	ver_dist;
+	double	distance;
+
+	hor_dist = 0;
+	ver_dist = 0;
+	if (data->ray_v_dire == UP)
+		data->first_v_y = floor(data->p_y / TILE_SIZE) * TILE_SIZE - 1;
+	else if (data->ray_v_dire == DOWN)
+		data->first_v_y = floor(data->p_y / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
+	data->first_v_x = data->p_x + ((data->p_y - data->first_v_y) / tan(deg));
+	ver_dist = sqrt((data->first_v_y - data->p_y) * (data->first_v_y
+				- data->p_y) + (data->first_v_x - data->p_x) * (data->first_v_x
+				- data->p_x));
+	//
+	if (data->ray_h_dire == RIGHT)
+		data->first_h_x = floor(data->p_x / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
+	else if (data->ray_h_dire == LEFT)
+		data->first_h_x = floor(data->p_x / TILE_SIZE) * TILE_SIZE - 1;
+	data->first_h_y = data->p_y + ((data->p_x - data->first_h_x) * tan(deg));
+	hor_dist = sqrt((data->first_h_y - data->p_y) * (data->first_h_y
+				- data->p_y) + (data->first_h_x - data->p_x) * (data->first_h_x
+				- data->p_x));
+	data->next_h_x = data->first_h_x;
+	data->next_h_y = data->first_h_y;
+	data->next_v_x = data->first_v_x;
+	data->next_v_y = data->first_v_y;
+	if (hor_dist < ver_dist)
+	{
+		data->p_x1 = data->first_h_x;
+		data->p_y1 = data->first_h_y;
+		draw_point(data, data->p_x1, data->p_y1, get_rgba(255, 0, 255, 255));
+		// return (hor/_dist);
+	}
+	else
+	{
+		data->p_x1 = data->first_v_x;
+		data->p_y1 = data->first_v_y;
+		draw_point(data, data->p_x1, data->p_y1, get_rgba(0, 0, 255, 255));
+		// return (ver_dist);
+	}
+}
+
+double	pethago_distance(double x1, double y1, double x2, double y2)
+{
+	if ((isinf(x1) || isinf(x1) || isinf(x1) || isinf(x1)))
 		return (99999999.0);
 	return (sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))));
 }
@@ -235,7 +301,6 @@ void	draw_point(t_data *data, int x, int y, int color)
 
 void	update_dire(t_data *data, double deg)
 {
-	deg = normalized_angle(deg);
 	if (deg > 0 && deg < M_PI)
 		data->ray_v_dire = UP;
 	else
@@ -246,73 +311,19 @@ void	update_dire(t_data *data, double deg)
 		data->ray_h_dire = LEFT;
 }
 
-double	first_hor_intersection(t_data *data, double deg)
+double	vertical_intersations(t_data *data, double deg, int *hit_bool)
 {
-	data->first_h_x = 0;
-	data->first_h_y = 0;
-	if (data->ray_v_dire == UP)
-		data->first_h_y = floor(data->p_y / TILE_SIZE) * TILE_SIZE - 1;
-	else
-		data->first_h_y = floor(data->p_y / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
-	data->first_h_x = (data->p_x + (data->first_h_y - data->p_y) / (tan(deg) *
-				-1));
-	return (0);
-}
-
-double	first_ver_intersection(t_data *data, double deg)
-{
-	if (data->ray_h_dire == RIGHT)
-		data->first_v_x = floor(data->p_x / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
-	else
-		data->first_v_x = floor(data->p_x / TILE_SIZE) * TILE_SIZE - 1;
-	data->first_v_y = data->p_y + (data->first_v_x - data->p_x) * (tan(deg) *
-			-1);
-	return (0);
-}
-
-double	hor_intersections(t_data *data, double deg, int *hit_wall)
-{
-	data->next_h_x = data->first_h_x;
-	data->next_h_y = data->first_h_y;
-	data->xa = 0;
-	data->ya = 0;
-	if (data->ray_v_dire == UP)
-		data->ya = TILE_SIZE * -1;
-	else if (data->ray_v_dire == DOWN)
-		data->ya = TILE_SIZE;
-	data->xa = data->ya / (tan(deg) * -1);
-	while (data->next_h_x <= WIDTH && data->next_h_x >= 0
-		&& data->next_h_y <= HEIGHT && data->next_h_y >= 0)
-	{
-		draw_point(data, data->next_h_x, data->next_h_y, get_rgba(255, 0, 255,
-				255));
-		if (has_wall(data, data->next_h_x, data->next_h_y))
-		{
-			*hit_wall = 1;
-			data->hor_hit_x = data->next_h_x;
-			data->hor_hit_y = data->next_h_y;
-			break ;
-		}
-		else
-		{
-			data->next_h_x += data->xa;
-			data->next_h_y += data->ya;
-		}
-	}
-	return (0);
-}
-
-double	ver_intersections(t_data *data, double deg, int *hit_wall)
-{
+	// if (deg == 90 || deg == 270)
+	//	return (0);
+	data->xa_v = 0;
+	data->ya_v = 0;
 	data->next_v_x = data->first_v_x;
 	data->next_v_y = data->first_v_y;
-	data->xa = 0;
-	data->ya = 0;
 	if (data->ray_h_dire == RIGHT)
-		data->xa = TILE_SIZE;
-	else
-		data->xa = TILE_SIZE * -1;
-	data->ya = data->xa * (tan(deg) * -1);
+		data->xa_v = TILE_SIZE;
+	else if (data->ray_h_dire == LEFT)
+		data->xa_v = -TILE_SIZE;
+	data->ya_v = data->xa_v * tan(deg);
 	while (data->next_v_x <= WIDTH && data->next_v_x >= 0
 		&& data->next_v_y <= HEIGHT && data->next_v_y >= 0)
 	{
@@ -320,49 +331,88 @@ double	ver_intersections(t_data *data, double deg, int *hit_wall)
 				255));
 		if (has_wall(data, data->next_v_x, data->next_v_y))
 		{
-			*hit_wall = 1;
+			*hit_bool = 1;
 			data->ver_hit_x = data->next_v_x;
 			data->ver_hit_y = data->next_v_y;
 			break ;
 		}
 		else
 		{
-			data->next_v_x += data->xa;
-			data->next_v_y += data->ya;
+			data->next_v_x += data->xa_v;
+			data->next_v_y += data->ya_v;
+			// if (isinf(data->next_v_x) || isinf(data->next_v_y)
+			//	|| isnan(data->next_v_x) || isnan(data->next_v_y))
+			//{
+			//	data->ver_distance = 99999999.00;
+			//	break ;
+			//}
 		}
 	}
+	return (0);
 }
 
-void	set_intersections(t_data *data, double deg)
+double	horizontal_intersations(t_data *data, double deg, int *hit_bool)
 {
+	// if (deg == 0 || deg == 180)
+	//	return (0);
+	data->xa_h = 0;
+	data->ya_h = 0;
+	data->next_h_x = data->first_h_x;
+	data->next_h_y = data->first_h_y;
+	if (data->ray_v_dire == UP)
+		data->ya_h = -TILE_SIZE;
+	else if (data->ray_v_dire == DOWN)
+		data->ya_h = TILE_SIZE;
+	data->xa_h = data->ya_h / tan(deg);
+	while (data->next_h_x <= WIDTH && data->next_h_x >= 0
+		&& data->next_h_y <= HEIGHT && data->next_h_y >= 0)
+	{
+		draw_point(data, data->next_h_x, data->next_h_y, get_rgba(255, 0, 255,
+				255));
+		if (has_wall(data, data->next_h_x, data->next_h_y))
+		{
+			*hit_bool = 1;
+			data->hor_hit_x = data->next_h_x;
+			data->hor_hit_y = data->next_h_y;
+			break ;
+		}
+		else
+		{
+			//!
+			data->next_h_x -= data->xa_h;
+			data->next_h_y += data->ya_h;
+			// if (isinf(data->next_h_x) || isinf(data->next_h_y)
+			//	|| isnan(data->next_h_x) || isnan(data->next_h_y))
+			//{
+			//	data->hor_distance = 99999999.00;
+			//	break ;
+			//}
+		}
+	}
+	return (0);
+}
+
+void	other_interractions(t_data *data, double deg)
+{
+	double	distance;
 	int		found_hor_wall;
 	int		found_ver_wall;
-	double	hor_dist;
-	double	ver_dist;
 
-	hor_dist = 0;
-	ver_dist = 0;
 	found_hor_wall = 0;
 	found_ver_wall = 0;
-	first_hor_intersection(data, deg);
-	first_ver_intersection(data, deg);
-	if (first_inter_hit_wall(data))
-		printf("No ray through\n");
-	else
-		printf("ray through\n");
-	hor_intersections(data, deg, &found_hor_wall);
-	ver_intersections(data, deg, &found_ver_wall);
+	horizontal_intersations(data, deg, &found_hor_wall);
+	// vertical_intersations(data, deg, &found_ver_wall);
 	if (found_hor_wall)
-		hor_dist = pethago_distance(data->hor_hit_x, data->p_x, data->hor_hit_y,
-				data->p_y);
+		data->hor_distance = pethago_distance(data->p_x, data->p_y,
+				data->hor_hit_x, data->hor_hit_y);
 	else
-		hor_dist = 9999999.00;
+		data->hor_distance = 99999999.00;
 	if (found_ver_wall)
-		ver_dist = pethago_distance(data->ver_hit_x, data->p_x, data->ver_hit_y,
-				data->p_y);
+		data->ver_distance = pethago_distance(data->p_x, data->p_y,
+				data->ver_hit_x, data->ver_hit_y);
 	else
-		ver_dist = 99999999.00;
-	if (hor_dist < ver_dist)
+		data->ver_distance = 99999999.00;
+	if (data->hor_distance < data->ver_distance)
 	{
 		data->p_x1 = data->hor_hit_x;
 		data->p_y1 = data->hor_hit_y;
@@ -376,40 +426,33 @@ void	set_intersections(t_data *data, double deg)
 
 void	cast_rays(t_data *data)
 {
+	double	ray_deg;
 	double	angle_increment;
 	double	distance;
 	int		column;
 	double	fov;
 	double	first_inter_dis;
-	double	half_fov;
-	double	angle_offset;
 
-	printf("rot_angle ::: %f\n", data->rot_angle * 180 / M_PI);
 	fov = data->p_radius * (M_PI / 180);
-	half_fov = fov / 2;
-	angle_offset = fov / (NOR - 1);
 	angle_increment = fov / NOR;
-	data->ray_angle = data->rot_angle - (fov / 2);
-	// data->ray_angle = normalized_angle(data->rot_angle);
+	// ray_deg = normalized_angle(data->rot_angle - (fov / 2));
+	ray_deg = normalized_angle(data->rot_angle);
 	column = 0;
-	printf("XXXXXXXXXxXXXXXX\n");
-	while (column < NOR)
-	{
-		data->ray_angle = normalized_angle(data->rot_angle - half_fov + (column
-					* angle_offset));
-		update_dire(data, data->ray_angle);
-		printf("angle %d :: %f\n", column, data->ray_angle * 180 / M_PI);
-		// end_point(data, ray_deg);
-		set_intersections(data, data->ray_angle);
-		cast_ray(data, data->ray_angle);
-		print_dirs(data);
-		printf("---------\n");
-		// printf("ray %d direction %d/%d \n", column, data->h_dire,
-		// data->v_dire);
-		data->ray_angle += angle_increment;
-		column++;
-	}
-	printf("\n=================\n");
+	// while (column < NOR)
+	//{
+	ray_deg = normalized_angle(ray_deg);
+	printf("angle :: %f\n", ray_deg * 180 / M_PI);
+	update_dire(data, ray_deg);
+	first_interaction(data, ray_deg);
+	// other_interractions(data, ray_deg);
+	// end_point(data, ray_deg);
+	print_dirs(data);
+	cast_ray(data, ray_deg);
+	// printf("ray %d direction %d/%d \n", column, data->h_dire,
+	// data->v_dire);
+	ray_deg += angle_increment;
+	column++;
+	//}
 }
 
 void	draw_map(t_data *data)
@@ -450,3 +493,34 @@ void	draw_map(t_data *data)
 			data->next_h_y += data->ya_v;
 		}
 	}*/
+
+double	ver_intersections(t_data *data, double deg, int *hit_wall)
+{
+	data->next_v_x = data->first_v_x;
+	data->next_v_y = data->first_v_y;
+	data->xa = 0;
+	data->ya = 0;
+	if (data->h_dire == RIGHT)
+		data->xa = TILE_SIZE;
+	else if (data->h_dire == LEFT)
+		data->xa = TILE_SIZE * -1;
+	data->ya = data->xa * tan(deg);
+	while (data->next_v_x <= WIDTH && data->next_v_x >= 0
+		&& data->next_v_y <= HEIGHT && data->next_v_y >= 0)
+	{
+		draw_point(data, data->next_h_x, data->next_h_y, get_rgba(0, 0, 255,
+				255));
+		if (has_wall(data, data->next_v_x, data->next_v_y))
+		{
+			*hit_wall = 1;
+			data->ver_hit_x = data->next_v_x;
+			data->ver_hit_y = data->next_v_y;
+			break ;
+		}
+		else
+		{
+			data->next_v_x += data->xa;
+			data->next_v_y += data->ya;
+		}
+	}
+}

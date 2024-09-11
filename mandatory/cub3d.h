@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/02 13:10:31 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 12:43:47 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,53 @@
 # define WIDTH 1200
 # define HEIGHT 800
 # define TILE_SIZE 30
-# define RES 1800
+# define NOR 3
+
+# define LEFT 1
+# define RIGHT 2
+# define DOWN 3
+# define UP 4
 
 typedef struct s_data
 {
 	mlx_image_t	*img;
 	mlx_t		*mlx_ptr;
+	double		*dist;
 	char		**map;
 	double		p_x;
 	double		p_y;
 	double		p_x1;
 	double		p_y1;
+	double		first_h_x;
+	double		first_h_y;
+	double		first_v_x;
+	double		first_v_y;
+	double		next_h_x;
+	double		next_h_y;
+	double		next_v_x;
+	double		next_v_y;
+	double		xa;
+	double		ya;
+	double		hor_hit_x;
+	double		hor_hit_y;
+	double		ver_hit_x;
+	double		ver_hit_y;
+	double		hor_distance;
+	double		ver_distance;
 	double		p_radius;
-	double		turn_dire;
-	double		walk_dire;
 	double		rot_angle;
+	double		ray_angle;
+	int			ray_v_dire;
+	int			ray_h_dire;
 	double		move_speed;
 	double		rot_speed;
 	char		p_direction;
+	int			v_dire;
+	int			h_dire;
 	int			w_map;
 	int			h_map;
+	double		wall_hit_x;
+	double		wall_hit_y;
 }				t_data;
 
 void			draw_map(t_data *data);
@@ -55,6 +82,12 @@ int				get_rgba(int r, int g, int b, int a);
 int				in_space(t_data *data);
 int				ray_in_space(t_data *data, double p_x1, double p_x2);
 int				ray_in_corner(t_data *data, double p_x, double p_y);
+void			set_direction(t_data *data);
+int				has_wall(t_data *data, double x, double y);
+void			cast(t_data *data, double angle);
+void			update_dire(t_data *data, double deg);
+
+double			normalized_angle(double deg);
 
 /* Hooks */
 void			keyhooks(mlx_key_data_t keydata, void *param);
