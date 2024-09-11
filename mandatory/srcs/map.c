@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 14:55:06 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 21:03:45 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@ void	draw_point(t_data *data, int x, int y, int color);
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-int	first_inter_hit_wall(t_data *data)
-{
-	if (has_wall(data, data->first_h_x, data->first_h_y) || has_wall(data,
-			data->first_v_x, data->first_v_y))
-		return (1);
-	return (0);
 }
 
 int	has_wall(t_data *data, double x, double y)
@@ -113,12 +105,14 @@ void	draw_row(char *str, t_data *data, int y_pos)
 	while (str[i])
 	{
 		if (str[i] == '1')
-			fill_tile(data->img, get_rgba(0, 0, 0, 255), x_pos, y_pos);
+			fill_tile(data->map_img, get_rgba(0, 0, 0, 255), x_pos, y_pos);
 		else if (str[i] == '0')
-			fill_tile(data->img, get_rgba(255, 255, 255, 255), x_pos, y_pos);
+			fill_tile(data->map_img, get_rgba(255, 255, 255, 255), x_pos,
+				y_pos);
 		else if (str[i] == 'W' || str[i] == 'N' || str[i] == 'E'
 			|| str[i] == 'S')
-			fill_tile(data->img, get_rgba(255, 255, 255, 255), x_pos, y_pos);
+			fill_tile(data->map_img, get_rgba(255, 255, 255, 255), x_pos,
+				y_pos);
 		x_pos += TILE_SIZE;
 		i++;
 	}
@@ -197,7 +191,7 @@ double	cast_ray(t_data *data, double ray_deg)
 	y_inc = dy / step;
 	while (i <= step)
 	{
-		mlx_put_pixel(data->img, (int)(round(p_x)), (int)(round(p_y)),
+		mlx_put_pixel(data->map_img, (int)(round(p_x)), (int)(round(p_y)),
 			get_rgba(255, 0, 0, 255));
 		p_x += x_inc;
 		p_y += y_inc;
@@ -225,10 +219,10 @@ void	draw_point(t_data *data, int x, int y, int color)
 		j = 0;
 		while (j < 3)
 		{
-			mlx_put_pixel(data->img, x + i, y + j, color);
+			mlx_put_pixel(data->map_img, x + i, y + j, color);
 			j++;
 		}
-		mlx_put_pixel(data->img, x + i, y + j, color);
+		mlx_put_pixel(data->map_img, x + i, y + j, color);
 		i++;
 	}
 }
@@ -385,7 +379,6 @@ void	cast_rays(t_data *data)
 	double	half_fov;
 	double	angle_offset;
 
-	printf("rot_angle ::: %f\n", data->rot_angle * 180 / M_PI);
 	fov = data->p_radius * (M_PI / 180);
 	half_fov = fov / 2;
 	angle_offset = fov / (NOR - 1);
@@ -393,24 +386,45 @@ void	cast_rays(t_data *data)
 	data->ray_angle = data->rot_angle - (fov / 2);
 	// data->ray_angle = normalized_angle(data->rot_angle);
 	column = 0;
-	printf("XXXXXXXXXxXXXXXX\n");
 	while (column < NOR)
 	{
 		data->ray_angle = normalized_angle(data->rot_angle - half_fov + (column
 					* angle_offset));
 		update_dire(data, data->ray_angle);
-		printf("angle %d :: %f\n", column, data->ray_angle * 180 / M_PI);
 		// end_point(data, ray_deg);
 		set_intersections(data, data->ray_angle);
 		cast_ray(data, data->ray_angle);
-		print_dirs(data);
-		printf("---------\n");
 		// printf("ray %d direction %d/%d \n", column, data->h_dire,
 		// data->v_dire);
 		data->ray_angle += angle_increment;
 		column++;
 	}
-	printf("\n=================\n");
+}
+
+void put_background(t_data *data)
+{
+	int x;
+	int y;
+	int first_half;
+
+	x = 0;
+	y = 0;
+	first_half = HEIGHT / 2;
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < first_half)
+		{
+			mlx_put_pixel(data->view, x, y, COLOR_4);
+			y++;
+		}
+		while (y < HEIGHT)
+		{
+			mlx_put_pixel(data->view, x, y, COLOR_2);
+			y++;
+		}
+		x++;
+	}
 }
 
 void	draw_map(t_data *data)
@@ -425,14 +439,19 @@ void	draw_map(t_data *data)
 	x = 0;
 	y_pos = 0;
 	map = data->map;
-	if (data->img)
-		mlx_delete_image(data->mlx_ptr, data->img);
-	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	if (data->map_img)
+		mlx_delete_image(data->mlx_ptr, data->map_img);
+	if (data->view)
+		mlx_delete_image(data->mlx_ptr, data->view);
+	data->map_img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->view = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	put_background(data);
 	map_render(data);
 	spawn_player(data);
 	cast_rays(data);
 	// end_point(data);
-	mlx_image_to_window(data->mlx_ptr, data->img, 0, 0);
+	mlx_image_to_window(data->mlx_ptr, data->view, 0, 0);
+	mlx_image_to_window(data->mlx_ptr, data->map_img, 0, 0);
 }
 
 /*	while (data->next_h_x <= WIDTH && data->next_h_x >= 0

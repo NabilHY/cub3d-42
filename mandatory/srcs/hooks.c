@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:14:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 14:59:51 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 18:47:24 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,7 @@ double	normalized_angle(double angle)
 	return (angle);
 }
 
-int	in_space(t_data *data)
-{
-	char	**map;
-	int		i;
-	int		j;
-
-	map = data->map;
-	i = data->p_x / TILE_SIZE;
-	j = data->p_y / TILE_SIZE;
-	if (map[j][i] == '1')
-		return (0);
-	return (1);
-}
-
-int	ray_in_space(t_data *data, double p_x, double p_y)
+int	point_is_wall(t_data *data, double p_x, double p_y)
 {
 	char	**map;
 	int		i;
@@ -67,7 +53,34 @@ int	ray_in_space(t_data *data, double p_x, double p_y)
 	j = (p_x / TILE_SIZE);
 	i = (p_y / TILE_SIZE);
 	if (map[i][j] == '1')
-		return (0);
+		return (1);
+	return (0);
+}
+
+int	in_space(t_data *data)
+{
+	char	**map;
+	int		ittr;
+	int		i;
+	int		j;
+
+	map = data->map;
+	ittr = -2;
+	while (ittr < 3)
+	{
+		if (point_is_wall(data, data->p_x + ittr, data->p_y))
+			return (0);
+		ittr++;
+	}
+	ittr = -2;
+	while (ittr < 3)
+	{
+		i = data->p_x / TILE_SIZE;
+		j = data->p_y + ittr / TILE_SIZE;
+		if (point_is_wall(data, data->p_x, data->p_y + ittr))
+			return (0);
+		ittr++;
+	}
 	return (1);
 }
 
@@ -107,8 +120,7 @@ void	keyhooks(mlx_key_data_t keydata, void *param)
 			data->rot_angle += data->rot_speed;
 			normalize_angle(data);
 		}
-		if (in_space(data) && (!has_wall(data, data->p_x + 1, data->p_y)
-				|| !has_wall(data, data->p_x, data->p_y + 1)))
+		if (in_space(data))
 		{
 			if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS
 					|| keydata.action == MLX_REPEAT))

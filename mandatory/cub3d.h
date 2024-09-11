@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 13:39:30 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/11 19:48:51 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@
 
 # define WIDTH 1200
 # define HEIGHT 800
-# define TILE_SIZE 30
+# define TILE_SIZE 10
 # define NOR 1800
+
+# define COLOR_1 get_rgba(255, 0, 255, 255)
+# define COLOR_2 get_rgba(0, 128, 128, 255)
+# define COLOR_3 get_rgba(255, 219, 88, 255)
+# define COLOR_4 get_rgba(112, 128, 144, 255)
 
 # define LEFT 1
 # define RIGHT 2
@@ -31,7 +36,8 @@
 
 typedef struct s_data
 {
-	mlx_image_t	*img;
+	mlx_image_t	*map_img;
+	mlx_image_t	*view;
 	mlx_t		*mlx_ptr;
 	double		*dist;
 	char		**map;
@@ -80,12 +86,11 @@ void			end_point(t_data *data, double rad);
 int				get_rgba(int r, int g, int b, int a);
 // void			draw_line(t_data *data, double distance);
 int				in_space(t_data *data);
-int				ray_in_space(t_data *data, double p_x1, double p_x2);
 int				ray_in_corner(t_data *data, double p_x, double p_y);
 void			set_direction(t_data *data);
-int				has_wall(t_data *data, double x, double y);
-void			cast(t_data *data, double angle);
+int				point_is_wall(t_data *data, double x, double y);
 void			update_dire(t_data *data, double deg);
+int				point_in_space(t_data *data, double p_x, double p_y);
 
 double			normalized_angle(double deg);
 
