@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/12 16:45:48 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/12 21:18:11 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ double	first_hor_intersection(t_data *data, double deg)
 	data->first_h_x = 0;
 	data->first_h_y = 0;
 	if (data->ray_v_dire == UP)
-		data->first_h_y = floor(data->p_y / TILE_SIZE) * TILE_SIZE - 1;
+		data->first_h_y = floor(data->p_y / TILE_SIZE) * TILE_SIZE - 0.01;
 	else
 		data->first_h_y = floor(data->p_y / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
 	data->first_h_x = (data->p_x + (data->first_h_y - data->p_y) / (tan(deg) *
@@ -258,7 +258,7 @@ double	first_ver_intersection(t_data *data, double deg)
 	if (data->ray_h_dire == RIGHT)
 		data->first_v_x = floor(data->p_x / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
 	else
-		data->first_v_x = floor(data->p_x / TILE_SIZE) * TILE_SIZE - 1;
+		data->first_v_x = floor(data->p_x / TILE_SIZE) * TILE_SIZE - 0.01;
 	data->first_v_y = data->p_y + (data->first_v_x - data->p_x) * (tan(deg) *
 			-1);
 	return (0);
@@ -279,8 +279,8 @@ double	hor_intersections(t_data *data, double deg, int *hit_wall)
 		&& data->next_h_y <= HEIGHT && data->next_h_y >= 0)
 	{
 		if (has_wall(data, data->next_h_x, data->next_h_y) || has_wall(data,
-				data->next_h_x + 1, data->next_h_y) || has_wall(data,
-				data->next_h_x, data->next_h_y + 1))
+				data->next_h_x + 0.01, data->next_h_y) || has_wall(data,
+				data->next_h_x, data->next_h_y + 0.01))
 		{
 			// draw_point(data, data->next_h_x, data->next_h_y, get_rgba(255, 0,
 			// 255,
@@ -314,8 +314,8 @@ double	ver_intersections(t_data *data, double deg, int *hit_wall)
 		&& data->next_v_y <= HEIGHT && data->next_v_y >= 0)
 	{
 		if (has_wall(data, data->next_v_x, data->next_v_y) || has_wall(data,
-				data->next_v_x + 1, data->next_v_y) || has_wall(data,
-				data->next_v_x, data->next_v_y + 1))
+				data->next_v_x + 0.01, data->next_v_y) || has_wall(data,
+				data->next_v_x, data->next_v_y + 0.01))
 		{
 			*hit_wall = 1;
 			data->ver_hit_x = data->next_v_x;
@@ -363,14 +363,12 @@ void	set_intersections(t_data *data, double deg)
 	{
 		data->p_x1 = data->hor_hit_x;
 		data->p_y1 = data->hor_hit_y;
-		data->vertical_inter = 0;
 		data->distance = hor_dist;
 	}
 	else
 	{
 		data->p_x1 = data->ver_hit_x;
 		data->p_y1 = data->ver_hit_y;
-		data->vertical_inter = 1;
 		data->distance = ver_dist;
 	}
 	data->distance *= cos(data->rot_angle - data->ray_angle);
@@ -409,13 +407,9 @@ void	draw_vertical_line(t_data *data, int x, int y_start, int y_end)
 	y = y_start;
 	while (y <= y_end)
 	{
-		// Check if x or y are out of bounds
 		if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
 			break ;
-		if (data->vertical_inter)
-			mlx_put_pixel(data->view, x, y, VER_COLOR);
-		if (!data->vertical_inter)
-			mlx_put_pixel(data->view, x, y, HOR_COLOR);
+		mlx_put_pixel(data->view, x, y, HOR_COLOR);
 		y++;
 	}
 }
@@ -513,7 +507,7 @@ void	draw_map(t_data *data)
 	spawn_player(data);
 	cast_rays(data);
 	// end_point(data);
-	 mlx_image_to_window(data->mlx_ptr, data->view, 0, 0);
+	mlx_image_to_window(data->mlx_ptr, data->view, 0, 0);
 	mlx_image_to_window(data->mlx_ptr, data->map_img, 0, 0);
 }
 
