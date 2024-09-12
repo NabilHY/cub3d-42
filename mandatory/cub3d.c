@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 18:46:52 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:13:31 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	mock_data(t_data *data)
 	 data->map = malloc(sizeof(char *) * 15);
 	 data->map[0] = ft_strdup("        1111111111111111111111111");
 	 data->map[1] = ft_strdup("        1000000000110000000000001");
-	 data->map[2] = ft_strdup("        101100000111000W000000001");
+	 data->map[2] = ft_strdup("        1011000001110000000000001");
 	 data->map[3] = ft_strdup("        1001000000000000000000001");
 	 data->map[4] = ft_strdup("111111111011000001110000000000001");
 	 data->map[5] = ft_strdup("100000000011000001110111110111111");
@@ -57,7 +57,7 @@ void	mock_data(t_data *data)
 	 data->map[8] = ft_strdup("11000000110101011100000010001");
 	 data->map[9] = ft_strdup("10000000000000001100000010001");
 	 data->map[10] = ft_strdup("10000000000000001101010010001");
-	 data->map[11] = ft_strdup("1100000111010101111101111000111");
+	 data->map[11] = ft_strdup("11000001110101011111011110N0111");
 	 data->map[12] = ft_strdup("11110111 1110101 101111010001");
 	 data->map[13] = ft_strdup("11111111 1111111 111111111111");
 	// data->map = malloc(sizeof(char *) * 15);
@@ -90,7 +90,7 @@ void	mock_data(t_data *data)
 	// data->w_map = 33;
 	data->p_radius = 60;
 	// data->dire = 0;
-	data->move_speed = 1;
+	data->move_speed = 10;
 	data->rot_speed = 10 * (M_PI / 180);
 	// printf("Player is at position x: %f y: %f with %c direction ,,,,
 	// fkn shit:

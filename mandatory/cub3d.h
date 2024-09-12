@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 19:48:51 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:39:42 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@
 # define WIDTH 1200
 # define HEIGHT 800
 # define TILE_SIZE 10
-# define NOR 1800
+# define NOR 1200
+# define RES 30
+# define LINE_HEIGHT 30
 
 # define COLOR_1 get_rgba(255, 0, 255, 255)
-# define COLOR_2 get_rgba(0, 128, 128, 255)
-# define COLOR_3 get_rgba(255, 219, 88, 255)
+# define COLOR_2 get_rgba(0, 0, 0, 255)
+# define COLOR_3 get_rgba(139, 0, 0, 255)
 # define COLOR_4 get_rgba(112, 128, 144, 255)
+# define HOR_COLOR get_rgba(139, 0, 0, 255)
+# define VER_COLOR get_rgba(0, 0, 255, 255)
 
 # define LEFT 1
 # define RIGHT 2
@@ -73,8 +77,10 @@ typedef struct s_data
 	int			h_dire;
 	int			w_map;
 	int			h_map;
+	int			vertical_inter;
 	double		wall_hit_x;
 	double		wall_hit_y;
+	double		distance;
 }				t_data;
 
 void			draw_map(t_data *data);

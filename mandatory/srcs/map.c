@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/11 21:03:45 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:45:48 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,8 +313,6 @@ double	ver_intersections(t_data *data, double deg, int *hit_wall)
 	while (data->next_v_x <= WIDTH && data->next_v_x >= 0
 		&& data->next_v_y <= HEIGHT && data->next_v_y >= 0)
 	{
-		// draw_point(data, data->next_v_x, data->next_v_y, get_rgba(0, 0, 255,
-		//		255));
 		if (has_wall(data, data->next_v_x, data->next_v_y) || has_wall(data,
 				data->next_v_x + 1, data->next_v_y) || has_wall(data,
 				data->next_v_x, data->next_v_y + 1))
@@ -348,25 +346,94 @@ void	set_intersections(t_data *data, double deg)
 	hor_intersections(data, deg, &found_hor_wall);
 	ver_intersections(data, deg, &found_ver_wall);
 	if (found_hor_wall)
+	{
 		hor_dist = pethago_distance(data->hor_hit_x, data->p_x, data->hor_hit_y,
 				data->p_y);
+	}
 	else
 		hor_dist = 9999999.00;
 	if (found_ver_wall)
+	{
 		ver_dist = pethago_distance(data->ver_hit_x, data->p_x, data->ver_hit_y,
 				data->p_y);
+	}
 	else
 		ver_dist = 99999999.00;
 	if (hor_dist < ver_dist)
 	{
 		data->p_x1 = data->hor_hit_x;
 		data->p_y1 = data->hor_hit_y;
+		data->vertical_inter = 0;
+		data->distance = hor_dist;
 	}
 	else
 	{
 		data->p_x1 = data->ver_hit_x;
 		data->p_y1 = data->ver_hit_y;
+		data->vertical_inter = 1;
+		data->distance = ver_dist;
 	}
+	data->distance *= cos(data->rot_angle - data->ray_angle);
+}
+
+void	draw_rectangle(t_data *data, int x, int y, int width, int height)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			mlx_put_pixel(data->view, x + j, y + i, COLOR_3);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_vertical_line(t_data *data, int x, int y_start, int y_end)
+{
+	int	y;
+
+	// Check if data or data->view is NULL
+	if (!data || !data->view)
+		return ;
+	// Clamp y_start and y_end within valid screen coordinates
+	if (y_start < 0)
+		y_start = 0;
+	if (y_end >= HEIGHT)
+		y_end = HEIGHT - 1;
+	y = y_start;
+	while (y <= y_end)
+	{
+		// Check if x or y are out of bounds
+		if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
+			break ;
+		if (data->vertical_inter)
+			mlx_put_pixel(data->view, x, y, VER_COLOR);
+		if (!data->vertical_inter)
+			mlx_put_pixel(data->view, x, y, HOR_COLOR);
+		y++;
+	}
+}
+
+void	render_wall(t_data *data, int column, double fov)
+{
+	double	d;
+	double	line_height;
+	double	wall_height;
+	double	projection_plane_distance;
+
+	double y_begin, y_end;
+	projection_plane_distance = WIDTH / (2 * tan(fov / 2));
+	d = (projection_plane_distance / 2) / tan(fov / 2);
+	wall_height = (10 / data->distance) * projection_plane_distance;
+	y_begin = (HEIGHT / 2) - (wall_height / 2);
+	y_end = (HEIGHT / 2) + (wall_height / 2);
+	draw_vertical_line(data, column, (int)y_begin, (int)y_end);
 }
 
 void	cast_rays(t_data *data)
@@ -384,28 +451,25 @@ void	cast_rays(t_data *data)
 	angle_offset = fov / (NOR - 1);
 	angle_increment = fov / NOR;
 	data->ray_angle = data->rot_angle - (fov / 2);
-	// data->ray_angle = normalized_angle(data->rot_angle);
 	column = 0;
 	while (column < NOR)
 	{
 		data->ray_angle = normalized_angle(data->rot_angle - half_fov + (column
 					* angle_offset));
 		update_dire(data, data->ray_angle);
-		// end_point(data, ray_deg);
 		set_intersections(data, data->ray_angle);
+		render_wall(data, column, fov);
 		cast_ray(data, data->ray_angle);
-		// printf("ray %d direction %d/%d \n", column, data->h_dire,
-		// data->v_dire);
 		data->ray_angle += angle_increment;
 		column++;
 	}
 }
 
-void put_background(t_data *data)
+void	put_background(t_data *data)
 {
-	int x;
-	int y;
-	int first_half;
+	int	x;
+	int	y;
+	int	first_half;
 
 	x = 0;
 	y = 0;
@@ -434,7 +498,6 @@ void	draw_map(t_data *data)
 	int		i;
 	char	**map;
 
-	;
 	i = 0;
 	x = 0;
 	y_pos = 0;
@@ -450,7 +513,7 @@ void	draw_map(t_data *data)
 	spawn_player(data);
 	cast_rays(data);
 	// end_point(data);
-	mlx_image_to_window(data->mlx_ptr, data->view, 0, 0);
+	 mlx_image_to_window(data->mlx_ptr, data->view, 0, 0);
 	mlx_image_to_window(data->mlx_ptr, data->map_img, 0, 0);
 }
 
