@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/12 21:17:16 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/13 12:54:18 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,21 @@ void	player_position(t_data *data)
 
 void	mock_data(t_data *data)
 {
-	 data->map = malloc(sizeof(char *) * 15);
-	 data->map[0] = ft_strdup("        1111111111111111111111111");
-	 data->map[1] = ft_strdup("        1000000000110000000000001");
-	 data->map[2] = ft_strdup("        1011000001110000000000001");
-	 data->map[3] = ft_strdup("        100100000000000N000000001");
-	 data->map[4] = ft_strdup("111111111011000001110000000000001");
-	 data->map[5] = ft_strdup("100000000011000001110111110111111");
-	 data->map[6] = ft_strdup("11110111111111011100000010001");
-	 data->map[7] = ft_strdup("11110111111111011101010010001");
-	 data->map[8] = ft_strdup("11000000110101011100000010001");
-	 data->map[9] = ft_strdup("10000000000000001100000010001");
-	 data->map[10] = ft_strdup("10000000000000001101010010001");
-	 data->map[11] = ft_strdup("1100000111010101111101111000111");
-	 data->map[12] = ft_strdup("11110111 1110101 101111010001");
-	 data->map[13] = ft_strdup("11111111 1111111 111111111111");
+	data->map = malloc(sizeof(char *) * 15);
+	data->map[0] = ft_strdup("        1111111111111111111111111");
+	data->map[1] = ft_strdup("        1000000000110000000000001");
+	data->map[2] = ft_strdup("        1011000001110000000000001");
+	data->map[3] = ft_strdup("        100100000000000N000000001");
+	data->map[4] = ft_strdup("111111111011000001110000000000001");
+	data->map[5] = ft_strdup("100000000011000001110111110111111");
+	data->map[6] = ft_strdup("11110111111111011100000010001");
+	data->map[7] = ft_strdup("11110111111111011101010010001");
+	data->map[8] = ft_strdup("11000000110101011100000010001");
+	data->map[9] = ft_strdup("10000000000000001100000010001");
+	data->map[10] = ft_strdup("10000000000000001101010010001");
+	data->map[11] = ft_strdup("1100000111010101111101111000111");
+	data->map[12] = ft_strdup("11110111 1110101 101111010001");
+	data->map[13] = ft_strdup("11111111 1111111 111111111111");
 	// data->map = malloc(sizeof(char *) * 15);
 	// data->map[0] = ft_strdup("        1111111111111111111111111");
 	// data->map[1] = ft_strdup("        1000000000000000000000001");
@@ -85,28 +85,34 @@ void	mock_data(t_data *data)
 		data->rot_angle = 0;
 	if (data->p_direction == 'N')
 		data->rot_angle = M_PI / 2;
-	set_direction(data);
 	data->h_map = 14;
 	// data->w_map = 33;
 	data->p_radius = 60;
 	// data->dire = 0;
-	data->move_speed = 10;
-	data->rot_speed = 10 * (M_PI / 180);
+	data->move_speed = 2;
+	data->rot_speed = 5 * (M_PI / 180);
+	set_direction(data);
 	// printf("Player is at position x: %f y: %f with %c direction ,,,,
 	// fkn shit:
 	//	%f \n", data->p_x, data->p_y, data->p_direction, data->rot_angle);
 }
 
+//void	mouse_hook(double xdelta, double ydelta, void *param)
+//{
+//	(void)param;
+//	//printf("%f\n", xdelta);
+//	//printf("%f\n", ydelta);
+//}
+
 int	main(void)
 {
 	t_data data;
-	double dist[NOR + 1];
 
-	data.dist = dist;
 	mock_data(&data);
 	data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 	draw_map(&data);
 	mlx_key_hook(data.mlx_ptr, keyhooks, (void *)&data);
+	//mlx_cursor_hook(data.mlx_ptr, mouse_hook, (void *)&data);
 	mlx_loop(data.mlx_ptr);
 	mlx_terminate(data.mlx_ptr);
 	// init_data(&data);

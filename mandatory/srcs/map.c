@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/12 21:18:11 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/13 12:55:37 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,8 +279,8 @@ double	hor_intersections(t_data *data, double deg, int *hit_wall)
 		&& data->next_h_y <= HEIGHT && data->next_h_y >= 0)
 	{
 		if (has_wall(data, data->next_h_x, data->next_h_y) || has_wall(data,
-				data->next_h_x + 0.01, data->next_h_y) || has_wall(data,
-				data->next_h_x, data->next_h_y + 0.01))
+				data->next_h_x + 0.001, data->next_h_y) || has_wall(data,
+				data->next_h_x, data->next_h_y + 0.001))
 		{
 			// draw_point(data, data->next_h_x, data->next_h_y, get_rgba(255, 0,
 			// 255,
@@ -361,12 +361,14 @@ void	set_intersections(t_data *data, double deg)
 		ver_dist = 99999999.00;
 	if (hor_dist < ver_dist)
 	{
+		data->vertical_inter = 0;
 		data->p_x1 = data->hor_hit_x;
 		data->p_y1 = data->hor_hit_y;
 		data->distance = hor_dist;
 	}
 	else
 	{
+		data->vertical_inter = 1;
 		data->p_x1 = data->ver_hit_x;
 		data->p_y1 = data->ver_hit_y;
 		data->distance = ver_dist;
@@ -405,11 +407,15 @@ void	draw_vertical_line(t_data *data, int x, int y_start, int y_end)
 	if (y_end >= HEIGHT)
 		y_end = HEIGHT - 1;
 	y = y_start;
+	x = WIDTH - x;
 	while (y <= y_end)
 	{
 		if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
 			break ;
-		mlx_put_pixel(data->view, x, y, HOR_COLOR);
+		if (!data->vertical_inter)
+			mlx_put_pixel(data->view, x, y, WALL_1);
+		else
+			mlx_put_pixel(data->view, x, y, WALL_2);
 		y++;
 	}
 }
@@ -444,7 +450,7 @@ void	cast_rays(t_data *data)
 	half_fov = fov / 2;
 	angle_offset = fov / (NOR - 1);
 	angle_increment = fov / NOR;
-	data->ray_angle = data->rot_angle - (fov / 2);
+	data->ray_angle = data->rot_angle + (fov / 2);
 	column = 0;
 	while (column < NOR)
 	{
@@ -473,12 +479,12 @@ void	put_background(t_data *data)
 		y = 0;
 		while (y < first_half)
 		{
-			mlx_put_pixel(data->view, x, y, COLOR_4);
+			mlx_put_pixel(data->view, x, y, SKY_COLOR);
 			y++;
 		}
 		while (y < HEIGHT)
 		{
-			mlx_put_pixel(data->view, x, y, COLOR_2);
+			mlx_put_pixel(data->view, x, y, FLOOR_COLOR);
 			y++;
 		}
 		x++;
@@ -508,7 +514,7 @@ void	draw_map(t_data *data)
 	cast_rays(data);
 	// end_point(data);
 	mlx_image_to_window(data->mlx_ptr, data->view, 0, 0);
-	mlx_image_to_window(data->mlx_ptr, data->map_img, 0, 0);
+	//mlx_image_to_window(data->mlx_ptr, data->map_img, 0, 0);
 }
 
 /*	while (data->next_h_x <= WIDTH && data->next_h_x >= 0

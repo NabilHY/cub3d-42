@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/12 21:12:21 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/13 11:09:12 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define COLOR_4 get_rgba(112, 128, 144, 255)
 # define HOR_COLOR get_rgba(139, 0, 0, 255)
 # define VER_COLOR get_rgba(0, 0, 255, 255)
+# define FLOOR_COLOR get_rgba(150, 111, 51, 255)
+# define SKY_COLOR get_rgba(135, 206, 235, 255)
+# define WALL_1 get_rgba(152,160,167,255)
+# define WALL_2 get_rgba(140,141,141,255)
 
 # define LEFT 1
 # define RIGHT 2
