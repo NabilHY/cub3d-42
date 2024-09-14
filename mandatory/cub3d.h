@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/13 11:09:12 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/14 18:14:09 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define VER_COLOR get_rgba(0, 0, 255, 255)
 # define FLOOR_COLOR get_rgba(150, 111, 51, 255)
 # define SKY_COLOR get_rgba(135, 206, 235, 255)
-# define WALL_1 get_rgba(152,160,167,255)
-# define WALL_2 get_rgba(140,141,141,255)
+# define WALL_1 get_rgba(152, 160, 167, 255)
+# define WALL_2 get_rgba(140, 141, 141, 255)
 
 # define LEFT 1
 # define RIGHT 2
@@ -82,17 +82,18 @@ typedef struct s_data
 	int			w_map;
 	int			h_map;
 	int			vertical_inter;
+	int			ceiling_color;
+	int			floor_color;
 	double		wall_hit_x;
 	double		wall_hit_y;
 	double		distance;
 }				t_data;
 
-void			draw_map(t_data *data);
+void			render_method(t_data *data);
 void			map_render(t_data *data);
 void			spawn_player(t_data *data);
 double			scaling_value(double ival, double omin, double omax,
 					double imax);
-void			end_point(t_data *data, double rad);
 int				get_rgba(int r, int g, int b, int a);
 // void			draw_line(t_data *data, double distance);
 int				in_space(t_data *data);
@@ -100,11 +101,32 @@ int				ray_in_corner(t_data *data, double p_x, double p_y);
 void			set_direction(t_data *data);
 int				point_is_wall(t_data *data, double x, double y);
 void			update_dire(t_data *data, double deg);
-int				point_in_space(t_data *data, double p_x, double p_y);
+void			put_background(t_data *data);
+
+void			cast_rays(t_data *data);
+
+void			draw_vertical_line(t_data *data, int x, int y_start, int y_end);
+
+void			set_intersections(t_data *data, double deg);
 
 double			normalized_angle(double deg);
 
+int				has_wall(t_data *data, double x, double y);
+
+double			pethago_distance(double x2, double x1, double y2, double y1);
+
+void			draw_point(t_data *data, int x, int y, int color);
+
 /* Hooks */
 void			keyhooks(mlx_key_data_t keydata, void *param);
+
+void			move_up(mlx_key_data_t keydata, t_data *data);
+
+void			move_up(mlx_key_data_t keydata, t_data *data);
+void			move_left(mlx_key_data_t keydata, t_data *data);
+void			move_down(mlx_key_data_t keydata, t_data *data);
+void			move_right(mlx_key_data_t keydata, t_data *data);
+
+void			mock_data(t_data *data);
 
 #endif

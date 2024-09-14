@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:14:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/13 13:00:29 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/14 17:59:24 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,18 @@ int	point_is_wall(t_data *data, double p_x, double p_y)
 
 int	in_space(t_data *data)
 {
-	char	**map;
-	int		ittr;
-	int		i;
-	int		j;
+	int	ittr;
 
-	map = data->map;
-	ittr = -2;
-	while (ittr < 3)
+	ittr = -1;
+	while (ittr < 2)
 	{
 		if (point_is_wall(data, data->p_x + ittr, data->p_y))
 			return (0);
 		ittr++;
 	}
-	ittr = -2;
-	while (ittr < 3)
+	ittr = -1;
+	while (ittr < 2)
 	{
-		i = data->p_x / TILE_SIZE;
-		j = data->p_y + ittr / TILE_SIZE;
 		if (point_is_wall(data, data->p_x, data->p_y + ittr))
 			return (0);
 		ittr++;
@@ -99,79 +93,45 @@ int	ray_in_corner(t_data *data, double p_x, double p_y)
 	return (1);
 }
 
+void	player_mouvements(mlx_key_data_t keydata,t_data *data)
+{
+	if (in_space(data))
+	{
+		if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS
+				|| keydata.action == MLX_REPEAT))
+			move_up(keydata, data);
+		if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS
+				|| keydata.action == MLX_REPEAT))
+			move_down(keydata, data);
+		if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+			move_left(keydata, data);
+		if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS
+				|| keydata.action == MLX_REPEAT))
+			move_right(keydata, data);
+	}
+}
+
+void	player_rotation(mlx_key_data_t keydata, t_data *data)
+{
+	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		data->rot_angle -= data->rot_speed;
+	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		data->rot_angle += data->rot_speed;
+	normalize_angle(data);
+}
+
 void	keyhooks(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
-	double	new_x;
-	double	new_y;
 
 	data = (t_data *)param;
 	if (data->p_x < WIDTH && data->p_y < HEIGHT)
 	{
-		if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_REPEAT
-				|| keydata.action == MLX_PRESS))
-		{
-			data->rot_angle -= data->rot_speed;
-			normalize_angle(data);
-		}
-		if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT
-				|| keydata.action == MLX_PRESS))
-		{
-			data->rot_angle += data->rot_speed;
-			normalize_angle(data);
-		}
-		if (in_space(data))
-		{
-			if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS
-					|| keydata.action == MLX_REPEAT))
-			{
-				data->p_y -= sin(data->rot_angle) * data->move_speed;
-				data->p_x += cos(data->rot_angle) * data->move_speed;
-				if (!in_space(data))
-				{
-					data->p_y += sin(data->rot_angle) * data->move_speed;
-					data->p_x -= cos(data->rot_angle) * data->move_speed;
-				}
-			}
-			if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS
-					|| keydata.action == MLX_REPEAT))
-			{
-				data->p_y += sin(data->rot_angle) * data->move_speed;
-				data->p_x -= cos(data->rot_angle) * data->move_speed;
-				if (!in_space(data))
-				{
-					data->p_y -= sin(data->rot_angle) * data->move_speed;
-					data->p_x += cos(data->rot_angle) * data->move_speed;
-				}
-			}
-			if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS
-					|| keydata.action == MLX_REPEAT))
-			{
-				data->p_y -= cos(data->rot_angle) * data->move_speed;
-				data->p_x -= sin(data->rot_angle) * data->move_speed;
-				if (!in_space(data))
-				{
-					data->p_y += cos(data->rot_angle) * data->move_speed;
-					data->p_x += sin(data->rot_angle) * data->move_speed;
-				}
-			}
-			if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS
-					|| keydata.action == MLX_REPEAT))
-			{
-				data->p_y += cos(data->rot_angle) * data->move_speed;
-				data->p_x += sin(data->rot_angle) * data->move_speed;
-				if (!in_space(data))
-				{
-					data->p_y -= cos(data->rot_angle) * data->move_speed;
-					data->p_x -= sin(data->rot_angle) * data->move_speed;
-				}
-			}
-		}
-		// printf("%f %f %f direction: %d/%d\n", data->p_x, data->p_y,
-		//(data->rot_angle * 180
-		//		/ M_PI), data->v_dire, data->h_dire);
+		player_rotation(keydata, data);
+		player_mouvements(keydata, data);
 		set_direction(data);
-		draw_map(data);
-		// printf("deg : %f\n", data->rot_angle);
+		render_method(data);
 	}
 }

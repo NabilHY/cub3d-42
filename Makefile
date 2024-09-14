@@ -4,7 +4,10 @@ ENTRY = ./mandatory/cub3d.c
 SRCS =	./mandatory/srcs/init.c \
 ./mandatory/srcs/map.c \
 ./mandatory/srcs/hooks.c \
-./mandatory/srcs/raycast.c
+./mandatory/srcs/raycast.c \
+./mandatory/srcs/intersec.c \
+./mandatory/srcs/utils.c \
+./mandatory/srcs/moves.c
 OBJS = $(SRCS:%.c=%.o)
 OBJS_BON = $(SRCS_BON:%.c=%.o)
 INCLUDE = ./mandatory/cub3d.h

@@ -4,7 +4,10 @@ ENTRY = cub3d.c
 SRCS =	./srcs/init.c \
 ./srcs/map.c \
 ./srcs/hooks.c \
-./srcs/raycast.c
+./srcs/raycast.c \
+./srcs/intersec.c \
+./srcs/utils.c \
+./srcs/moves.c
 INCLUDE = .
 OBJS = $(SRCS:%.c=%.o)
 MLX_MACOS = -framework Cocoa -framework OpenGL -framework IOKit
@@ -20,7 +23,7 @@ NAME = ../cub3D
 	@$(CC) $(FLAGS) -I$(INCLUDE) -I$(MLX_INCLUDE) -c $< -o $@
 
 $(NAME): $(MLX_AR) $(OBJS) $(INCLUDE)
-	@$(CC) $(FLAGS) -lm  -fsanitize=address $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_MACOS) $(MLX_AR)  $(LIBR) $(GLFW) -o $(NAME)
+	@$(CC) $(FLAGS) -lm  -fsanitize=address $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_AR)  $(LIBR) $(GLFW) -o $(NAME)
 	@echo "Program Compiled successfully."
 
 clean:
