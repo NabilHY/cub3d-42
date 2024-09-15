@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/15 15:55:58 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/15 16:57:53 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 800
+# define HEIGHT 600
 # define TILE_SIZE 10
-# define NOR 1200
+# define NOR 800
 # define RES 30
 # define LINE_HEIGHT 30
 
@@ -88,6 +88,7 @@ typedef struct s_data
 	double		wall_hit_x;
 	double		wall_hit_y;
 	double		distance;
+	double		last_x;
 }				t_data;
 
 typedef struct s_points
@@ -143,5 +144,7 @@ void			move_down(mlx_key_data_t keydata, t_data *data);
 void			move_right(mlx_key_data_t keydata, t_data *data);
 
 void			mock_data(t_data *data);
+
+void			mouse_hook(double xdelta, double ydelta, void *param);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:14:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/15 16:01:06 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/15 18:13:16 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	player_mouvements(mlx_key_data_t keydata, t_data *data)
 				|| keydata.action == MLX_REPEAT))
 			move_right(keydata, data);
 	}
+		printf("None\n");
 }
 
 void	player_rotation(mlx_key_data_t keydata, t_data *data)
@@ -125,6 +126,21 @@ void	player_rotation(mlx_key_data_t keydata, t_data *data)
 	normalize_angle(data);
 }
 
+void	mouse_hook(double xdelta, double ydelta, void *param)
+{
+	t_data	*data;
+	double	delta_x;
+
+	data = (t_data *)param;
+	//printf("%f\n", xdelta);
+		delta_x = xdelta - data->last_x;
+		data->rot_angle -= delta_x * 0.006;
+		data->rot_angle = normalized_angle(data->rot_angle);
+		data->last_x = xdelta;
+	//}
+	render_method(data);
+}
+
 void	keyhooks(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
@@ -135,7 +151,7 @@ void	keyhooks(mlx_key_data_t keydata, void *param)
 		mlx_terminate(data->mlx_ptr);
 		exit(0);
 	}
-	if (data->p_x < WIDTH && data->p_y < HEIGHT)
+	if (data->p_x < data->w_map && data->p_y < data->h_map)
 	{
 		player_rotation(keydata, data);
 		player_mouvements(keydata, data);
