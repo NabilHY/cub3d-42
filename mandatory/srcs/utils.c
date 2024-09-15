@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:04:17 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/14 18:17:02 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/15 13:32:39 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ void	draw_point(t_data *data, int x, int y, int color)
 	int	i;
 	int	j;
 
-	i = -3;
-	j = -3;
-	while (i < 3)
+	i = -2;
+	j = -2;
+	while (i < 2)
 	{
 		j = 0;
-		while (j < 3)
+		while (j < 2)
 		{
-			mlx_put_pixel(data->map_img, x + i, y + j, color);
+			mlx_put_pixel(data->minimap, x + i, y + j, color);
 			j++;
 		}
-		mlx_put_pixel(data->map_img, x + i, y + j, color);
+		mlx_put_pixel(data->minimap, x + i, y + j, color);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/14 18:14:09 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/15 15:55:58 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 typedef struct s_data
 {
 	mlx_image_t	*map_img;
+	mlx_image_t	*minimap;
 	mlx_image_t	*view;
 	mlx_t		*mlx_ptr;
 	double		*dist;
@@ -88,6 +89,20 @@ typedef struct s_data
 	double		wall_hit_y;
 	double		distance;
 }				t_data;
+
+typedef struct s_points
+{
+	double		rad;
+	double		p_x1;
+	double		p_y1;
+	double		dx;
+	double		dy;
+	double		x_inc;
+	double		y_inc;
+	double		step;
+	int			i;
+	double		distance;
+}				t_points;
 
 void			render_method(t_data *data);
 void			map_render(t_data *data);

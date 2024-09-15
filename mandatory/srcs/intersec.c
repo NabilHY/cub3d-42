@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:10:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/14 18:20:18 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/15 10:23:08 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ double	hor_intersections(t_data *data, double deg, int *hit_wall)
 	else if (data->ray_v_dire == DOWN)
 		data->ya = TILE_SIZE;
 	data->xa = data->ya / (tan(deg) * -1);
-	while (data->next_h_x <= WIDTH && data->next_h_x >= 0
-		&& data->next_h_y <= HEIGHT && data->next_h_y >= 0)
+	while (data->next_h_x <= data->w_map && data->next_h_x >= 0
+		&& data->next_h_y <= data->h_map && data->next_h_y >= 0)
 	{
 		if (has_wall(data, data->next_h_x, data->next_h_y) || has_wall(data,
 				data->next_h_x + 0.001, data->next_h_y) || has_wall(data,
@@ -79,8 +79,8 @@ double	ver_intersections(t_data *data, double deg, int *hit_wall)
 	else
 		data->xa = TILE_SIZE * -1;
 	data->ya = data->xa * (tan(deg) * -1);
-	while (data->next_v_x <= WIDTH && data->next_v_x >= 0
-		&& data->next_v_y <= HEIGHT && data->next_v_y >= 0)
+	while (data->next_v_x <= data->w_map && data->next_v_x >= 0
+		&& data->next_v_y <= data->h_map && data->next_v_y >= 0)
 	{
 		if (has_wall(data, data->next_v_x, data->next_v_y) || has_wall(data,
 				data->next_v_x + 0.01, data->next_v_y) || has_wall(data,
