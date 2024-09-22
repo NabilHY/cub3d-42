@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/15 16:57:53 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:01:40 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <unistd.h>
 
 # define WIDTH 800
+# define NOR 800
 # define HEIGHT 600
 # define TILE_SIZE 10
-# define NOR 800
 # define RES 30
 # define LINE_HEIGHT 30
 
@@ -47,6 +47,8 @@ typedef struct s_data
 	mlx_image_t	*map_img;
 	mlx_image_t	*minimap;
 	mlx_image_t	*view;
+	mlx_texture_t *texture1;
+	mlx_texture_t *texture2;
 	mlx_t		*mlx_ptr;
 	double		*dist;
 	char		**map;
@@ -121,7 +123,9 @@ void			put_background(t_data *data);
 
 void			cast_rays(t_data *data);
 
-void			draw_vertical_line(t_data *data, int x, int y_start, int y_end);
+// void			draw_vertical_line(t_data *data, int x, int y_start, int y_end);
+void draw_vertical_line(t_data *data, int x, int y_start, int y_end, mlx_texture_t *texture);
+
 
 void			set_intersections(t_data *data, double deg);
 
@@ -146,5 +150,13 @@ void			move_right(mlx_key_data_t keydata, t_data *data);
 void			mock_data(t_data *data);
 
 void			mouse_hook(double xdelta, double ydelta, void *param);
+
+
+
+
+
+//bunda tests
+void test_function(mlx_t *mlx);
+uint32_t get_pixel_color(mlx_texture_t *texture, uint32_t x, uint32_t y);
 
 #endif

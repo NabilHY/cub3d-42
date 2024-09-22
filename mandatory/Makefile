@@ -7,13 +7,14 @@ SRCS =	./srcs/init.c \
 ./srcs/raycast.c \
 ./srcs/intersec.c \
 ./srcs/utils.c \
+./srcs/texture.c \
 ./srcs/moves.c
 INCLUDE = .
 OBJS = $(SRCS:%.c=%.o)
 MLX_MACOS = -framework Cocoa -framework OpenGL -framework IOKit
 MLX_INCLUDE = ../MLX42/include/MLX42.h
 MLX_AR = ../MLX42/build/libmlx42.a
-GLFW = -lglfw -L/Users/nhayoun/.brew/opt/glfw/lib/
+GLFW = -lglfw -L/Users/ael-maaz/.brew/opt/glfw/lib/
 GLFW_LINUX = -ldl -lglfw -pthread -lm
 LIBR = ../libr.a
 NAME = ../cub3D

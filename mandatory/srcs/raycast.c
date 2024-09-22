@@ -3,55 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:05:57 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/14 17:13:14 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:56:16 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	render_wall(t_data *data, int column, double fov)
+void render_wall(t_data *data, int column, double fov)
 {
-	double	d;
-	double	line_height;
-	double	wall_height;
-	double	projection_plane_distance;
+    double wall_height;
+    double projection_plane_distance;
+    double y_begin, y_end;
 
-	double y_begin, y_end;
-	projection_plane_distance = WIDTH / (2 * tan(fov / 2));
-	d = (projection_plane_distance / 2) / tan(fov / 2);
-	wall_height = (10 / data->distance) * projection_plane_distance;
-	y_begin = (HEIGHT / 2) - (wall_height / 2);
-	y_end = (HEIGHT / 2) + (wall_height / 2);
-	draw_vertical_line(data, column, (int)y_begin, (int)y_end);
+    // Calculate the distance to the projection plane
+    projection_plane_distance = WIDTH / (2 * tan(fov / 2));
+
+    // Calculate wall height based on the unmodified distance (no angle correction)
+    wall_height = (TILE_SIZE / data->distance) * projection_plane_distance;
+
+    // Calculate where to begin and end drawing the wall on the screen
+    y_begin = (HEIGHT / 2) - (wall_height / 2);
+    y_end = (HEIGHT / 2) + (wall_height / 2);
+
+    // Render the wall with the calculated height for both vertical and horizontal intersections
+    if (!data->vertical_inter)
+        draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture1);  // Horizontal wall
+    else
+        draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture2);  // Vertical wall
 }
 
-void	draw_vertical_line(t_data *data, int x, int y_start, int y_end)
+void draw_vertical_line(t_data *data, int x, int y_start, int y_end, mlx_texture_t *texture)
 {
-	int	y;
+    int y;
+    double texture_y;
+    double step;
+    double texture_pos;
+    double texture_x;
 
-	// Check if data or data->view is NULL
-	if (!data || !data->view)
-		return ;
-	// Clamp y_start and y_end within valid screen coordinates
-	if (y_start < 0)
-		y_start = 0;
-	if (y_end >= HEIGHT)
-		y_end = HEIGHT - 1;
-	y = y_start;
-	x = WIDTH - x;
-	while (y <= y_end)
-	{
-		if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
-			break ;
-		if (!data->vertical_inter)
-			mlx_put_pixel(data->view, x, y, WALL_1);
-		else
-			mlx_put_pixel(data->view, x, y, WALL_2);
-		y++;
-	}
+    // Safety check to ensure data and texture are not null
+    if (!data || !data->view || !texture)
+        return;
+
+    // Calculate texture X coordinate based on the intersection point
+    // Horizontal walls: use p_x to determine the X position in the texture
+    // Vertical walls: use p_y
+    if (!data->vertical_inter)
+    {
+        texture_x = fmod(data->p_x1, TILE_SIZE) / TILE_SIZE * texture->width;
+    }
+    else
+        texture_x = fmod(data->p_y1, TILE_SIZE) / TILE_SIZE * texture->width;
+
+    step = (double)texture->height / (y_end - y_start);  // Height scaling factor
+
+    texture_pos = 0.0;  // Start at the top of the texture
+    y = y_start;
+    x = WIDTH - x;
+    // Draw the vertical line with the texture
+    while (y <= y_end)
+    {
+        // Calculate the Y coordinate in the texture
+        texture_y = (int)texture_pos % texture->height;
+        if(y>=0 && y<HEIGHT)
+        {
+            uint32_t color = get_pixel_color(texture, (int)texture_x, (int)texture_y);
+            mlx_put_pixel(data->view, x, y, color);
+            
+        }
+
+        texture_pos += step;
+        y++;
+    }
 }
 
 double	cast_ray(t_data *data, double ray_deg)
@@ -78,8 +103,7 @@ double	cast_ray(t_data *data, double ray_deg)
 	y_inc = dy / step;
 	while (i <= step)
 	{
-		mlx_put_pixel(data->map_img, (int)(round(p_x)), (int)(round(p_y)),
-			get_rgba(255, 0, 0, 255));
+		mlx_put_pixel(data->map_img, (int)(round(p_x)), (int)(round(p_y)), get_rgba(255, 0, 0, 255));
 		p_x += x_inc;
 		p_y += y_inc;
 		i++;
@@ -90,20 +114,18 @@ double	cast_ray(t_data *data, double ray_deg)
 void	cast_rays(t_data *data)
 {
 	double angle_increment;
-	double distance;
 	int column;
 	double fov;
-	double first_inter_dis;
 	double half_fov;
 	double angle_offset;
 
 	fov = data->p_radius * (M_PI / 180);
 	half_fov = fov / 2;
-	angle_offset = fov / (NOR - 1);
-	angle_increment = fov / NOR;
+	angle_offset = fov / (WIDTH - 1);
+	angle_increment = fov / WIDTH;
 	data->ray_angle = data->rot_angle + (fov / 2);
 	column = 0;
-	while (column < NOR)
+	while (column < WIDTH)
 	{
 		data->ray_angle = normalized_angle(data->rot_angle - half_fov + (column
 					* angle_offset));

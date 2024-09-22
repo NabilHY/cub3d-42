@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:10:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/15 10:23:08 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:29:11 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,66 @@ double	ver_intersections(t_data *data, double deg, int *hit_wall)
 		}
 	}
 }
+
+// void	set_intersections(t_data *data, double deg)
+// {
+// 	int found_hor_wall;
+// 	int found_ver_wall;
+// 	double hor_dist;
+// 	double ver_dist;
+
+// 	hor_dist = 0;
+// 	ver_dist = 0;
+// 	found_hor_wall = 0;
+// 	found_ver_wall = 0;
+
+// 	// Step 1: Find initial horizontal and vertical intersections
+// 	first_hor_intersection(data, deg);
+// 	first_ver_intersection(data, deg);
+
+// 	// Step 2: Trace along horizontal and vertical lines to find walls
+// 	hor_intersections(data, deg, &found_hor_wall);
+// 	ver_intersections(data, deg, &found_ver_wall);
+
+// 	// Step 3: Calculate distances to the horizontal and vertical hits
+// 	if (found_hor_wall)
+// 	{
+// 		hor_dist = pethago_distance(data->hor_hit_x, data->p_x, data->hor_hit_y, data->p_y);
+// 		data->wall_hit_x = data->hor_hit_x;  // Store wall hit position for texture mapping
+// 		data->wall_hit_y = data->hor_hit_y;
+// 	}
+// 	else
+// 		hor_dist = 9999999.00;
+
+// 	if (found_ver_wall)
+// 	{
+// 		ver_dist = pethago_distance(data->ver_hit_x, data->p_x, data->ver_hit_y, data->p_y);
+// 		data->wall_hit_x = data->ver_hit_x;  // Store wall hit position for texture mapping
+// 		data->wall_hit_y = data->ver_hit_y;
+// 	}
+// 	else
+// 		ver_dist = 99999999.00;
+
+// 	// Step 4: Choose the shorter distance (closer wall)
+// 	if (hor_dist < ver_dist)
+// 	{
+// 		data->vertical_inter = 0;  // Horizontal wall
+// 		data->p_x1 = data->hor_hit_x;
+// 		data->p_y1 = data->hor_hit_y;
+// 		data->distance = hor_dist;
+// 	}
+// 	else
+// 	{
+// 		data->vertical_inter = 1;  // Vertical wall
+// 		data->p_x1 = data->ver_hit_x;
+// 		data->p_y1 = data->ver_hit_y;
+// 		data->distance = ver_dist;
+// 	}
+
+// 	// Step 5: Correct the distance using the cosine of the angle
+// 	data->distance *= cos(data->rot_angle - data->ray_angle);
+// }
+
 
 void	set_intersections(t_data *data, double deg)
 {
