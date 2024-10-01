@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/22 19:01:40 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:42:49 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_data
 	mlx_image_t	*view;
 	mlx_texture_t *texture1;
 	mlx_texture_t *texture2;
+	mlx_texture_t *texture3;
+	mlx_texture_t *texture4;
 	mlx_t		*mlx_ptr;
 	double		*dist;
 	char		**map;

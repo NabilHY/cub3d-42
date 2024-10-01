@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:33:42 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/22 18:21:07 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:43:19 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ void	mock_data(t_data *data)
 	data->map[13] = ft_strdup("11111111 1111111 111111111111");
 	data->map[14] = NULL;
 	data->texture1 = mlx_load_png("./textures/texture3.png");
-	data->texture2 = mlx_load_png("./textures/wall2.png");
+	data->texture2 = mlx_load_png("./textures/ael-maaz.png");
+	data->texture3 = mlx_load_png("./textures/wall2.png");
+	data->texture4 = mlx_load_png("./textures/wall1.png");
 	// data->map = malloc(sizeof(char *) * 15);
 	// data->map[0] = ft_strdup("        1111111111111111111111111");
 	// data->map[1] = ft_strdup("        1000000000000000000000001");

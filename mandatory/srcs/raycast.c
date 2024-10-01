@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:05:57 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/22 18:56:16 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:44:47 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,25 @@ void render_wall(t_data *data, int column, double fov)
 
     // Render the wall with the calculated height for both vertical and horizontal intersections
     if (!data->vertical_inter)
-        draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture1);  // Horizontal wall
+    {
+        if(data->ray_v_dire == UP)
+        {
+            draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture1);  // Horizontal wall
+        }
+        else
+        {
+            draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture3);
+        }
+    }
     else
-        draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture2);  // Vertical wall
+    {
+        if(data->ray_h_dire == LEFT)
+        {
+            draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture2);  // Vertical wall   
+        }
+        else
+            draw_vertical_line(data, column, (int)y_begin, (int)y_end, data->texture4);
+    }
 }
 
 void draw_vertical_line(t_data *data, int x, int y_start, int y_end, mlx_texture_t *texture)
