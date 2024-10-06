@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/01 18:42:49 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:58:47 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # define WIDTH 800
 # define NOR 800
@@ -42,18 +43,36 @@
 # define DOWN 3
 # define UP 4
 
+typedef struct s_util
+{
+	char *str;
+	int count;
+} t_util;
+typedef struct s_map_data
+{
+	t_util floor;
+	t_util ceiling;
+	t_util no;
+	t_util so;
+	t_util ea;
+	t_util we;
+	int fcolor[3];
+	int ccolor[3];
+} t_map_data;
+
 typedef struct s_data
 {
 	mlx_image_t	*map_img;
 	mlx_image_t	*minimap;
 	mlx_image_t	*view;
-	mlx_texture_t *texture1;
-	mlx_texture_t *texture2;
-	mlx_texture_t *texture3;
-	mlx_texture_t *texture4;
+	mlx_texture_t *textureNO;
+	mlx_texture_t *textureWE;
+	mlx_texture_t *textureSO;
+	mlx_texture_t *textureEA;
 	mlx_t		*mlx_ptr;
 	double		*dist;
 	char		**map;
+	char		**file;
 	double		p_x;
 	double		p_y;
 	double		p_x1;
@@ -149,16 +168,25 @@ void			move_left(mlx_key_data_t keydata, t_data *data);
 void			move_down(mlx_key_data_t keydata, t_data *data);
 void			move_right(mlx_key_data_t keydata, t_data *data);
 
-void			mock_data(t_data *data);
+void			mock_data(t_data *data, t_map_data x);
 
 void			mouse_hook(double xdelta, double ydelta, void *param);
 
+char				*ft_strdup_split(const char *s1);
 
+char				*ft_substr_split(char *s, int start, int len);
 
+char				*ft_strjoin_split(char *s1, char *s2);
 
-
+char				*ft_strchr_split(const char *s, int c);
+char	*get_next_line(int fd);
+int	ncount(long n);
+char	*allocate(int *n, long *i);
+void test_function(mlx_t *mlx);
+uint32_t get_pixel_color(mlx_texture_t *texture, uint32_t x, uint32_t y);
+char	**ft_split(char const *s, char c);
 //bunda tests
 void test_function(mlx_t *mlx);
 uint32_t get_pixel_color(mlx_texture_t *texture, uint32_t x, uint32_t y);
-
+int test_map_validity(char *filename, t_data *data, t_map_data *x);
 #endif

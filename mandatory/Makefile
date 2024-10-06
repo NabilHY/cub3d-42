@@ -8,6 +8,11 @@ SRCS =	./srcs/init.c \
 ./srcs/intersec.c \
 ./srcs/utils.c \
 ./srcs/texture.c \
+./srcs/utilities.c \
+./srcs/map_test.c \
+./srcs/get_next_line.c \
+./srcs/get_next_line_utils.c \
+./srcs/ft_split.c \
 ./srcs/moves.c
 INCLUDE = .
 OBJS = $(SRCS:%.c=%.o)

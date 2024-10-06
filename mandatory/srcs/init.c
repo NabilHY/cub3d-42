@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:33:42 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/01 18:43:19 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:37:07 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,49 +69,13 @@ void	player_position(t_data *data)
 	data->p_y += TILE_SIZE / 2;
 }
 
-void	mock_data(t_data *data)
+void	mock_data(t_data *data, t_map_data x)
 {
-	data->map = malloc(sizeof(char *) * 15);
-	data->map[0] = ft_strdup("        111111111111111111111111111");
-	data->map[1] = ft_strdup("        1000000000000000000000001");
-	data->map[2] = ft_strdup("        101100000111111111100011111");
-	data->map[3] = ft_strdup("        1001000000000000000000001");
-	data->map[4] = ft_strdup("111111111011000001110000000000001");
-	data->map[5] = ft_strdup("100000000011000001110111110111111");
-	data->map[6] = ft_strdup("11110111111111011100000010001");
-	data->map[7] = ft_strdup("11110111111111011101010010001");
-	data->map[8] = ft_strdup("11000000110101011100000010001");
-	data->map[9] = ft_strdup("10000000000000001100000010001");
-	data->map[10] = ft_strdup("10000000000000001101010010001");
-	data->map[11] = ft_strdup("110N000111010101111101111000111");
-	data->map[12] = ft_strdup("11110111 1110101 101111010001");
-	data->map[13] = ft_strdup("11111111 1111111 111111111111");
-	data->map[14] = NULL;
-	data->texture1 = mlx_load_png("./textures/texture3.png");
-	data->texture2 = mlx_load_png("./textures/ael-maaz.png");
-	data->texture3 = mlx_load_png("./textures/wall2.png");
-	data->texture4 = mlx_load_png("./textures/wall1.png");
-	// data->map = malloc(sizeof(char *) * 15);
-	// data->map[0] = ft_strdup("        1111111111111111111111111");
-	// data->map[1] = ft_strdup("        1000000000000000000000001");
-	// data->map[2] = ft_strdup("        1000000000100000000000001");
-	// data->map[3] = ft_strdup("        1000000001010000000000001");
-	// data->map[4] = ft_strdup("111111111000000000100000000000001");
-	// data->map[5] = ft_strdup("100000000000000000000000000111111");
-	// data->map[6] = ft_strdup("10000000000000N0000000010001");
-	// data->map[7] = ft_strdup("10000000000000000000000000001");
-	// data->map[8] = ft_strdup("11000000000000000000000000001");
-	// data->map[9] = ft_strdup("10000000000000000000000000001");
-	// data->map[10] = ft_strdup("10000000000000000000000000001");
-	// data->map[11] = ft_strdup("11000000000000000000000000001");
-	// data->map[12] = ft_strdup("10000001 1000001 100000000001");
-	// data->map[13] = ft_strdup("11111111 1111111 111111111111");
-	// data->map = malloc(sizeof(char *) * 6);
-	// data->map[0] = ft_strdup("1111111");
-	// data->map[1] = ft_strdup("1000001");
-	// data->map[2] = ft_strdup("100N001");
-	// data->map[3] = ft_strdup("1000001");
-	// data->map[4] = ft_strdup("1111111");
+
+	data->textureNO = mlx_load_png(x.no.str);
+	data->textureWE = mlx_load_png(x.we.str);
+	data->textureSO = mlx_load_png(x.so.str);
+	data->textureEA = mlx_load_png(x.ea.str);
 	player_position(data);
 	if (data->p_direction == 'W')
 		data->rot_angle = M_PI;
@@ -128,8 +92,8 @@ void	mock_data(t_data *data)
 	// data->dire = 0;
 	data->move_speed = 2;
 	data->rot_speed = 4 * (M_PI / 180);
-	data->ceiling_color = get_rgba(135, 206, 235, 255);
-	data->floor_color = get_rgba(150, 111, 51, 255);
+	data->ceiling_color = get_rgba(x.ccolor[0], x.ccolor[1], x.ccolor[2], 255);
+	data->floor_color = get_rgba(x.fcolor[0], x.fcolor[1], x.fcolor[2], 255);
 	data->last_x = WIDTH / 2;
 	set_direction(data);
 }
