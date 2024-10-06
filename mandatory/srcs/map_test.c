@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/06 19:11:21 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:46:53 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -481,6 +481,14 @@ int another_another_function(char **copy, int *error, int height)
 		if(copy[i][0] == '0')
 			return(*error = 1,1);
 		i++;
+	}
+	i = 0;
+	while(copy[i])
+	{
+		if(copy[i][ft_strlen(copy[i]) - 1] == '0')
+			return(*error = 1,1);
+		i++;
+			
 	}
 	return 0;
 }
