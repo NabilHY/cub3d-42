@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/04 19:26:04 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:41:25 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	main(int ac, char **av)
 {
 	t_data data;
 	t_map_data x;
-	x.ceiling.str = NULL;
 	x.ceiling.count = 0;
-	x.floor.str = NULL;
 	x.floor.count = 0;
+	x.ceiling.str = NULL;
 	x.ea.str = NULL;
+	x.floor.str = NULL;
 	x.no.str = NULL;
 	x.we.str = NULL;
 	x.so.str = NULL;
@@ -28,14 +28,11 @@ int	main(int ac, char **av)
 	x.no.count = 0;
 	x.we.count = 0;
 	x.so.count = 0;
-	if(ac == 2)
+	if (ac == 2)
 	{
-		if(test_map_validity(av[1], &data, &x) == 1)
-		{
-			// printf("failed\n");
-			return 1;
-		}
-		mock_data(&data, x);
+		if (test_map_validity(av[1], &data, &x) == 1)
+			return (1);
+		init_data(&data, x);
 		data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 		mlx_key_hook(data.mlx_ptr, keyhooks, (void *)&data);
 		mlx_cursor_hook(data.mlx_ptr, mouse_hook, (void *)&data);
@@ -44,5 +41,5 @@ int	main(int ac, char **av)
 		mlx_terminate(data.mlx_ptr);
 		return (0);
 	}
-	printf("wrong arguemtns\n");
+	printf("wrong arguments\n");
 }

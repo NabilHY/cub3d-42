@@ -1,5 +1,5 @@
 cc = CC
-FLAGS = -Wall -Wextra -Werror -O3
+FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address
 ENTRY = cub3d.c
 SRCS =	./srcs/init.c \
 ./srcs/map.c \
@@ -19,7 +19,7 @@ OBJS = $(SRCS:%.c=%.o)
 MLX_MACOS = -framework Cocoa -framework OpenGL -framework IOKit
 MLX_INCLUDE = ../MLX42/include/MLX42.h
 MLX_AR = ../MLX42/build/libmlx42.a
-GLFW = -lglfw -L/Users/ael-maaz/.brew/opt/glfw/lib/
+GLFW = -lglfw -L/Users/nhayoun/.brew/opt/glfw/lib/
 GLFW_LINUX = -ldl -lglfw -pthread -lm
 LIBR = ../libr.a
 NAME = ../cub3D
@@ -29,7 +29,7 @@ NAME = ../cub3D
 	@$(CC) $(FLAGS) -I$(INCLUDE) -I$(MLX_INCLUDE) -c $< -o $@
 
 $(NAME): $(MLX_AR) $(OBJS) $(INCLUDE)
-	@$(CC) $(FLAGS) -lm  -fsanitize=address $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_AR)  $(LIBR) $(GLFW) -o $(NAME)
+	@$(CC) $(FLAGS) -lm $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_AR)  $(LIBR) $(GLFW) -o $(NAME)
 	@echo "Program Compiled successfully."
 
 clean:

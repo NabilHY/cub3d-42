@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:14:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/15 18:13:16 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/11 11:49:05 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ double	normalized_angle(double angle)
 	angle = fmod(angle, 2 * M_PI);
 	if (angle < 0)
 		angle += 2 * M_PI;
-	// printf("normalized angle %f == %f deg\n", angle, angle * 180 / M_PI);
 	return (angle);
 }
 
@@ -112,7 +111,6 @@ void	player_mouvements(mlx_key_data_t keydata, t_data *data)
 				|| keydata.action == MLX_REPEAT))
 			move_right(keydata, data);
 	}
-		printf("None\n");
 }
 
 void	player_rotation(mlx_key_data_t keydata, t_data *data)
@@ -132,13 +130,21 @@ void	mouse_hook(double xdelta, double ydelta, void *param)
 	double	delta_x;
 
 	data = (t_data *)param;
-	//printf("%f\n", xdelta);
-		delta_x = xdelta - data->last_x;
-		data->rot_angle -= delta_x * 0.006;
+	delta_x = xdelta - data->last_x;
+	if (xdelta > 0 && xdelta <= WIDTH && ydelta > 0 && ydelta <= HEIGHT)
+	{
+		data->rot_angle -= delta_x * 0.01;
 		data->rot_angle = normalized_angle(data->rot_angle);
 		data->last_x = xdelta;
-	//}
-	render_method(data);
+		render_method(data);
+	}
+	else
+	{
+		mlx_set_mouse_pos(data->mlx_ptr, WIDTH / 2, HEIGHT / 2);
+		// Do not update rot_angle or last_x here
+	}
+	printf("rot ang %f // delta_x %f\n", data->rot_angle / (M_PI / 180),
+		xdelta);
 }
 
 void	keyhooks(mlx_key_data_t keydata, void *param)

@@ -1,5 +1,5 @@
 CC = cc
-FLAGS = -Wall -Wextra -Werror -O3
+FLAGS = -Wall -Wextra -Werror -O3 -fsanitize=address
 ENTRY = ./mandatory/cub3d.c
 SRCS =	./mandatory/srcs/init.c \
 ./mandatory/srcs/map.c \
@@ -14,7 +14,7 @@ INCLUDE = ./mandatory/cub3d.h
 MLX_MACOS = -framework Cocoa -framework OpenGL -framework IOKit
 MLX_INCLUDE = ./MLX42/include/MLX42.h
 MLX42_DIR = ./MLX42
-GLFW = -lglfw -L/Users/ael-maaz/.brew/opt/glfw/lib/
+GLFW = -lglfw -L/Users/nhayoun/.brew/opt/glfw/lib/
 MLX_AR = ./MLX42/build/libmlx42.a
 MLXLIB = ./MLX42/lib/MLX42
 FSANITIZE = -g -fsanitize=address

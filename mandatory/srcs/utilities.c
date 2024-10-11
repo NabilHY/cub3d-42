@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 18:25:06 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/02 21:09:58 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:41:40 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*ft_substr(char const *s,  int start, int len)
 		return (NULL);
 	i = 0;
 	while (i < len)
-		sub[i++] = s[start++]; 
+		sub[i++] = s[start++];
 	sub[i] = '\0';
 	return (sub);
 }
@@ -175,7 +175,7 @@ int	ft_isdigit(int c)
 
 // static int	space(int c)
 // {
-// 	if ((c >= 9 && c <= 13) || c == 32) 
+// 	if ((c >= 9 && c <= 13) || c == 32)
 // 		return (1);
 // 	else
 // 		return (0);
@@ -229,7 +229,7 @@ char	*ft_itoa(int n)
 	while (cpy > 0)
 	{
 		str[i-- - 1] = (cpy % 10) + 48;
-		cpy /= 10; 
+		cpy /= 10;
 	}
 	return (str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:02:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/02 21:19:26 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/11 09:44:43 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ static char	*strdup_i(const char *s1, char c, int *index)
 
 char	**ft_split(char const *s, char c)
 {
-	char	**tab;
-	int		j;
-	int		i;
+	char **tab;
+	int j;
+	int i;
 
 	i = 0;
 	j = 0;

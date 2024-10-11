@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:52:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/14 17:59:02 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/10 19:41:33 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	move_up(mlx_key_data_t keydata, t_data *data)
 {
+	(void)keydata;
 	data->p_y -= sin(data->rot_angle) * data->move_speed;
 	data->p_x += cos(data->rot_angle) * data->move_speed;
 	if (!in_space(data))
@@ -25,6 +26,7 @@ void	move_up(mlx_key_data_t keydata, t_data *data)
 
 void	move_left(mlx_key_data_t keydata, t_data *data)
 {
+	(void)keydata;
 	data->p_y -= cos(data->rot_angle) * data->move_speed;
 	data->p_x -= sin(data->rot_angle) * data->move_speed;
 	if (!in_space(data))
@@ -36,6 +38,7 @@ void	move_left(mlx_key_data_t keydata, t_data *data)
 
 void	move_down(mlx_key_data_t keydata, t_data *data)
 {
+	(void)keydata;
 	data->p_y += sin(data->rot_angle) * data->move_speed;
 	data->p_x -= cos(data->rot_angle) * data->move_speed;
 	if (!in_space(data))
@@ -47,6 +50,7 @@ void	move_down(mlx_key_data_t keydata, t_data *data)
 
 void	move_right(mlx_key_data_t keydata, t_data *data)
 {
+	(void)keydata;
 	data->p_y += cos(data->rot_angle) * data->move_speed;
 	data->p_x += sin(data->rot_angle) * data->move_speed;
 	if (!in_space(data))
