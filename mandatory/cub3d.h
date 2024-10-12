@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/12 11:54:45 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/12 12:22:44 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIDTH 800
+# define WIDTH 600
 # define NOR 800
-# define HEIGHT 600
+# define HEIGHT 400
 # define TILE_SIZE 10
 # define RES 30
 # define LINE_HEIGHT 30
