@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/11 11:47:09 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/12 11:54:45 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_data
 	int				vertical_inter;
 	int				ceiling_color;
 	int				floor_color;
+	double			prev_rot;
 	double			wall_hit_x;
 	double			wall_hit_y;
 	double			distance;

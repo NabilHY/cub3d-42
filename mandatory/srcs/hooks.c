@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 16:14:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/11 11:49:05 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/12 12:08:08 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,15 +136,15 @@ void	mouse_hook(double xdelta, double ydelta, void *param)
 		data->rot_angle -= delta_x * 0.01;
 		data->rot_angle = normalized_angle(data->rot_angle);
 		data->last_x = xdelta;
+		data->prev_rot = data->rot_angle;
 		render_method(data);
 	}
 	else
 	{
 		mlx_set_mouse_pos(data->mlx_ptr, WIDTH / 2, HEIGHT / 2);
-		// Do not update rot_angle or last_x here
+		data->rot_angle = data->prev_rot;
+		data->last_x = WIDTH / 2;
 	}
-	printf("rot ang %f // delta_x %f\n", data->rot_angle / (M_PI / 180),
-		xdelta);
 }
 
 void	keyhooks(mlx_key_data_t keydata, void *param)
