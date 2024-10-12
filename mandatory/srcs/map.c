@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/11 09:47:47 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/12 15:14:23 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,9 @@ void	minimap_render(t_data *data)
 		{
 			if ((data->p_x - 50) + x < 0 || (data->p_y - 50) + y < 0
 				|| checker(data, (data->p_x - 50) + x, (data->p_y - 50) + y))
-				mlx_put_pixel(data->minimap, x, y, get_rgba(0, 0, 0, 255));
+				mlx_put_pixel(data->minimap, x, y, get_opposite_rgba(data->floor_color));
 			else if (!checker(data, (data->p_x - 50) + x, (data->p_y - 50) + y))
-				mlx_put_pixel(data->minimap, x, y, get_rgba(255, 255, 255,
-						255));
+				mlx_put_pixel(data->minimap, x, y, get_opposite_rgba(data->ceiling_color));
 			y++;
 		}
 		x++;

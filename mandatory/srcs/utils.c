@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:04:17 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/15 13:32:39 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/12 15:13:26 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,21 @@ double	calc_distance(double x1, double y1, double x2, double y2)
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int	get_opposite_rgba(int rgba)
+{
+	// Extract each color component from the 32-bit integer
+	int r = (rgba >> 24) & 0xFF; // Get the red component
+	int g = (rgba >> 16) & 0xFF; // Get the green component
+	int b = (rgba >> 8) & 0xFF;  // Get the blue component
+	int a = rgba & 0xFF;         // Get the alpha component
+
+	// Invert the RGB components
+	int opposite_r = 255 - r;
+	int opposite_g = 255 - g;
+	int opposite_b = 255 - b;
+
+	// Combine the opposite color components back into a 32-bit integer
+	return (opposite_r << 24 | opposite_g << 16 | opposite_b << 8 | a);
 }

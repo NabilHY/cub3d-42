@@ -1,11 +1,11 @@
-F 220,0,0
+F 220,220,150
 
 
-NO       textures/wall1.png
 C 5,30,0,,,,,
 
 
-WE textures/wall3.png
+NO       textures/ael-maaz.png
+WE textures/texture3.png
 EA textures/wall2.png
 SO  textures/wall4.png
 
