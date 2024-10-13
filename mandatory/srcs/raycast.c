@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:05:57 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/12 12:10:05 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/13 13:09:22 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	render_wall(t_data *data, int column, double fov)
 		else
 			draw_vertical_line(data, column, (int)y_begin, (int)y_end,
 				data->textureSO);
-		return;
+		return ;
 	}
 	if (data->ray_h_dire == LEFT)
 		draw_vertical_line(data, column, (int)y_begin, (int)y_end,
@@ -60,7 +60,6 @@ void	draw_vertical_line(t_data *data, int x, int y_start, int y_end,
 	step = (double)texture->height / (y_end - y_start);
 	texture_pos = 0.0;
 	y = y_start;
-	//! 
 	x = WIDTH - x - 1;
 	while (y++ <= y_end)
 	{

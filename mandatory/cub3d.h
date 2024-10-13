@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/12 12:22:44 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/13 13:00:53 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,10 +169,17 @@ void				test_function(mlx_t *mlx);
 uint32_t			get_pixel_color(mlx_texture_t *texture, uint32_t x,
 						uint32_t y);
 char				**ft_split(char const *s, char c);
-// bunda tests
-void				test_function(mlx_t *mlx);
-uint32_t			get_pixel_color(mlx_texture_t *texture, uint32_t x,
-						uint32_t y);
+// bunda parsing
+int	ext_test(char *filename);
+int	ext_test2(char *filename);
+int	file_existance(char *filename);
+int	test_textures(t_data *data, int *index, t_map_data *x, int i);
+int	copy_file(char *filename, t_data *data, int i, int j);
 int					test_map_validity(char *filename, t_data *data,
 						t_map_data *x);
+void	free_2d(char **arr);
+int increment_func(int *n);
+int test_numbers(char **args, int *error, char *flag, t_map_data *x);
+int	test_colors(char **line, char *flag, t_map_data *x, int i);
+int	open_textures(char **line, char *flag, t_map_data *x);
 #endif

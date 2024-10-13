@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 17:04:17 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/09/15 13:32:39 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/12 18:13:24 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,4 @@ void	draw_point(t_data *data, int x, int y, int color)
 double	calc_distance(double x1, double y1, double x2, double y2)
 {
 	return (sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))));
-}
-
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
 }
