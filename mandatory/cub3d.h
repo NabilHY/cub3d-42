@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/13 13:00:53 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:56:41 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,6 @@
 # define TILE_SIZE 10
 # define RES 30
 # define LINE_HEIGHT 30
-
-# define COLOR_1 get_rgba(255, 0, 255, 255)
-# define COLOR_2 get_rgba(0, 0, 0, 255)
-# define COLOR_3 get_rgba(139, 0, 0, 255)
-# define COLOR_4 get_rgba(112, 128, 144, 255)
-# define HOR_COLOR get_rgba(139, 0, 0, 255)
-# define VER_COLOR get_rgba(0, 0, 255, 255)
-# define FLOOR_COLOR get_rgba(150, 111, 51, 255)
-# define SKY_COLOR get_rgba(135, 206, 235, 255)
-# define WALL_1 get_rgba(152, 160, 167, 255)
-# define WALL_2 get_rgba(140, 141, 141, 255)
 
 # define LEFT 1
 # define RIGHT 2
