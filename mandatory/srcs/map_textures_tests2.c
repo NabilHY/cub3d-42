@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 12:45:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/13 13:44:17 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:37:58 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ int	test_colors(char **line, char *flag, t_map_data *x, int i)
 	error = 0;
 	if (ft_fcmp(flag, "F") == 0 || ft_fcmp(flag, "C") == 0)
 	{
+		if(test_comma(line[1]) == 1)
+			return 1;
 		args = ft_split(line[1], ',');
 		while (args[i])
 			i++;
 		if (i == 3)
 		{
 			if (test_numbers(args, &error, flag, x) == 1)
-				return (1);
+				return (free_2d(args), 1);
 		}
 		else
 			return (printf("invalid argument for F/C\n"), free_2d(args), 1);

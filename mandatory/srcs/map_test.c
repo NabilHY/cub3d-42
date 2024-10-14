@@ -6,57 +6,11 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/13 16:47:43 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:27:52 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void something(t_data *data, int *i, int j)
-{
-	while (data->file[(*i)])
-	{
-		j = 0;
-		while (data->file[(*i)][j])
-		{
-			if (data->file[(*i)][j] == ' ')
-				j++;
-			else
-				break ;
-		}
-		if (data->file[(*i)][j] == '\0')
-			(*i)++;
-		else
-			break ;
-	}
-}
-
-int	copy_map(t_data *data, int i, int j)
-{
-	int	l;
-	int	max;
-
-	something(data,&i,j);
-	j = i;
-	while (data->file[i])
-		i++;
-	data->map = malloc(sizeof(char *) * (i - j + 1));
-	l = 0;
-	while (data->file[j])
-	{
-		data->map[l++] = ft_strdup(data->file[j]);
-		j++;
-	}
-	data->map[l] = NULL;
-	max = 0;
-	i = -1;
-	while (data->map[++i])
-	{
-		if (ft_strlen(data->map[i]) > max)
-			max = ft_strlen(data->map[i]);
-	}
-	return (data->w_map = max, data->h_map = l, 0);
-}
 
 void	flood_fill(t_data *data, char ***copy, int x, int y, int *error)
 {
@@ -80,98 +34,6 @@ void	flood_fill(t_data *data, char ***copy, int x, int y, int *error)
 	flood_fill(data, copy, x - 1, y, error);
 	flood_fill(data, copy, x, y + 1, error);
 	flood_fill(data, copy, x, y - 1, error);
-}
-
-int	another_function(char **copy, int *error, int height)
-{
-	int	i;
-	int	j;
-	int	line_len;
-
-	i = 0;
-	while (copy[i])
-	{
-		j = 0;
-		line_len = ft_strlen(copy[i]);
-		while (copy[i][j])
-		{
-			if (copy[i][j] == ' ')
-			{
-				if (i > 0 && i < height - 1)
-				{
-					if (copy[i - 1][j] == '0')
-						return (*error = 1, 1);
-					else if (copy[i + 1][j] == '0')
-						return (*error = 1, 1);
-					if (j == 0)
-					{
-						if (copy[i][j + 1] == '0')
-							return (*error = 1, 1);
-					}
-					else if (j == line_len)
-					{
-						if (copy[i][j - 1] == '0')
-							return (*error = 1, 1);
-					}
-					else
-					{
-						if (copy[i][j + 1] == '0')
-							return (*error = 1, 1);
-						else if (copy[i][j - 1] == '0')
-							return (*error = 1, 1);
-					}
-				}
-				else if (i == 0)
-				{
-					if (copy[i + 1][j] == '0')
-						return (*error = 1, 1);
-					if (j == 0)
-					{
-						if (copy[i][j + 1] == '0')
-							return (*error = 1, 1);
-					}
-					else if (j == line_len)
-					{
-						if (copy[i][j - 1] == '0')
-							return (*error = 1, 1);
-					}
-					else
-					{
-						if (copy[i][j + 1] == '0')
-							return (*error = 1, 1);
-						else if (copy[i][j - 1] == '0')
-							return (*error = 1, 1);
-					}
-				}
-				else
-				{
-					if (copy[i - 1][j] == '0')
-						return (*error = 1, 1);
-					if (j == 0)
-					{
-						if (copy[i][j + 1] == '0')
-							return (*error = 1, 1);
-					}
-					else if (j == line_len)
-					{
-
-						if (copy[i][j - 1] == '0')
-							return (*error = 1, 1);
-					}
-					else
-					{
-						if (copy[i][j + 1] == '0')
-							return (*error = 1, 1);
-						else if (copy[i][j - 1] == '0')
-							return (*error = 1, 1);
-					}
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-	return 0;
 }
 
 int	borders_check(char **copy, int *error, int height, int i)
@@ -242,7 +104,7 @@ int	parsing_test(t_data *data, int i, int j, int error)
 			return (printf("found empty line\n"), free_2d(copy), 1);
 	}
 	flood_fill(data, &copy, data->p_x, data->p_y, &error);
-	if (another_function(copy, &error, data->h_map) == 1)
+	if (another_function(copy, &error, data->h_map, -1) == 1)
 		return (printf("fucked up map\n"), free_2d(copy), 1);
 	if (borders_check(copy, &error, data->h_map, -1) == 1 || error == 1)
 		return (printf("another fucked up map\n"), free_2d(copy), 1);
@@ -251,8 +113,9 @@ int	parsing_test(t_data *data, int i, int j, int error)
 
 int	test_map_validity(char *filename, t_data *data, t_map_data *x)
 {
-	int i = 0;
-	//pretests
+	int i;
+	
+	i = 0;
 	if (ext_test(filename) == 0)
 	{
 		printf("failed in file extension\n");
@@ -263,17 +126,27 @@ int	test_map_validity(char *filename, t_data *data, t_map_data *x)
 		printf("failed in opening file\n");
 		return 1;
 	}
+	//no leaks here cuz no malloc was called
+	
 	copy_file(filename, data,0,0);
-	//end of pretests
-	//map_textures_tests
+	//file was copied in data->file
 	if (test_textures(data, &i, x, 0) == 1)
 	{
 		printf("texrure test\n");
+		free_2d(data->file);
+		free(x->ea.str);
+		free(x->we.str);
+		free(x->so.str);
+		free(x->no.str);
+		free(x->ceiling.str);
+		free(x->floor.str);
 		return 1;
 	}
-	//end of map_textures_tests
 	copy_map(data, i, 0);
 	if (parsing_test(data,0,0,0) == 1)
+	{
+		free_all(data, x);
 		return 1;
+	}
 	return 0;
 }

@@ -11,6 +11,7 @@ SRCS =	./srcs/init.c \
 ./srcs/utilities.c \
 ./srcs/utilities2.c \
 ./srcs/utilities3.c \
+./srcs/utilities4.c \
 ./srcs/map_test.c \
 ./srcs/get_next_line.c \
 ./srcs/get_next_line_utils.c \
@@ -18,6 +19,8 @@ SRCS =	./srcs/init.c \
 ./srcs/map_pretests.c \
 ./srcs/map_textures_tests.c \
 ./srcs/map_textures_tests2.c \
+./srcs/map_parsing_tests.c \
+./srcs/map_parsing_tests2.c \
 ./srcs/moves.c
 INCLUDE = .
 OBJS = $(SRCS:%.c=%.o)

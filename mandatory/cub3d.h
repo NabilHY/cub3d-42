@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/13 16:56:41 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:39:34 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ char				*allocate(int *n, long *i);
 void				test_function(mlx_t *mlx);
 uint32_t			get_pixel_color(mlx_texture_t *texture, uint32_t x,
 						uint32_t y);
+						int	get_opposite_rgba(int rgba);
 char				**ft_split(char const *s, char c);
 // bunda parsing
 int	ext_test(char *filename);
@@ -171,4 +172,8 @@ int increment_func(int *n);
 int test_numbers(char **args, int *error, char *flag, t_map_data *x);
 int	test_colors(char **line, char *flag, t_map_data *x, int i);
 int	open_textures(char **line, char *flag, t_map_data *x);
+int	another_function(char **copy, int *error, int height, int i);
+int	copy_map(t_data *data, int i, int j);
+void free_all(t_data *data, t_map_data *x);
+int test_comma(char *str);
 #endif
