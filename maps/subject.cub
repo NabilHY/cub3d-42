@@ -2,7 +2,7 @@ F 220,220,150
 
 
 NO       textures/wall1.png
-C 5,30,,0
+C 5,30,0
 
 
 WE textures/wall3.png
@@ -11,5 +11,5 @@ SO textures/wall4.png
 111 1
 101 1
 1N1 1
-101 1
+10011
 11111

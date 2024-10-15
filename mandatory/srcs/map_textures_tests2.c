@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 12:45:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/14 22:37:58 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:09:41 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	test_colors(char **line, char *flag, t_map_data *x, int i)
 	error = 0;
 	if (ft_fcmp(flag, "F") == 0 || ft_fcmp(flag, "C") == 0)
 	{
-		if(test_comma(line[1]) == 1)
-			return 1;
+		if (test_comma(line[1]) == 1)
+			return (1);
 		args = ft_split(line[1], ',');
 		while (args[i])
 			i++;

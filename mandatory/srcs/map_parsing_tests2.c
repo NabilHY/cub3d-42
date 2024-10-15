@@ -6,13 +6,13 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:46:40 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/14 19:47:14 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:35:15 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void something(t_data *data, int *i, int j)
+void	something(t_data *data, int *i, int j)
 {
 	while (data->file[(*i)])
 	{
@@ -36,7 +36,7 @@ int	copy_map(t_data *data, int i, int j)
 	int	l;
 	int	max;
 
-	something(data,&i,j);
+	something(data, &i, j);
 	j = i;
 	while (data->file[i])
 		i++;

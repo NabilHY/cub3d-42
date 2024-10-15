@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/14 22:39:34 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:27:38 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 	mlx_t			*mlx_ptr;
 	double			*dist;
 	char			**map;
+	char			**copy;
 	char			**file;
 	double			p_x;
 	double			p_y;
