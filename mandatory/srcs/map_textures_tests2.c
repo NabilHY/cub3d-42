@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 12:45:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/15 19:09:41 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/15 21:38:28 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	test_colors(char **line, char *flag, t_map_data *x, int i)
 		if (i == 3)
 		{
 			if (test_numbers(args, &error, flag, x) == 1)
-				return (free_2d(args), 1);
+				return (/* free_2d(args), */ 1);
 		}
 		else
 			return (printf("invalid argument for F/C\n"), free_2d(args), 1);

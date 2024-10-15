@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/14 19:32:09 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/15 21:42:03 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void init_map_data(t_map_data *x)
 
 void ll(void)
 {
-	system("leaks cub3D");
+	system("leaks cub3d");
 }
 
 int	main(int ac, char **av)
