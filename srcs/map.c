@@ -6,28 +6,11 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:02:58 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/12 15:14:23 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	has_wall(t_data *data, double x, double y)
-{
-	char	**map;
-	int		i;
-	int		j;
-
-	map = data->map;
-	if (x < 0 || y < 0)
-		return (0);
-	i = (int)(x / TILE_SIZE);
-	j = (int)(y / TILE_SIZE);
-	if (!(j > 0 && j * TILE_SIZE < data->h_map && i > 0
-			&& i < (int)ft_strlen(map[j])) || map[j][i] == '1')
-		return (1);
-	return (0);
-}
 
 double	row_len(t_data *data, double x)
 {
@@ -106,9 +89,9 @@ void	minimap_render(t_data *data)
 		{
 			if ((data->p_x - 50) + x < 0 || (data->p_y - 50) + y < 0
 				|| checker(data, (data->p_x - 50) + x, (data->p_y - 50) + y))
-				mlx_put_pixel(data->minimap, x, y, get_opposite_rgba(data->floor_color));
+				mlx_put_pixel(data->minimap, x, y, o_rgba(data->floor_color));
 			else if (!checker(data, (data->p_x - 50) + x, (data->p_y - 50) + y))
-				mlx_put_pixel(data->minimap, x, y, get_opposite_rgba(data->ceiling_color));
+				mlx_put_pixel(data->minimap, x, y, o_rgba(data->ceiling_color));
 			y++;
 		}
 		x++;

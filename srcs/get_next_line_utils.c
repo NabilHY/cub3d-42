@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:38:31 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/08/21 18:43:59 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strdup_split(const char *s1)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	*buf;
 
 	i = 0;
@@ -80,9 +80,9 @@ char	*ft_strchr_split(const char *s, int c)
 
 char	*ft_substr_split(char *s, int start, int len)
 {
-	int	string_length;
+	int		string_length;
 	char	*buf;
-	int	i;
+	int		i;
 
 	string_length = ft_strlen(s);
 	i = 0;

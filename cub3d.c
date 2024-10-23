@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/15 21:42:03 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:29:48 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_map_data(t_map_data *x)
+void	init_map_data(t_map_data *x)
 {
 	x->ceiling.count = 0;
 	x->floor.count = 0;
@@ -28,16 +28,16 @@ void init_map_data(t_map_data *x)
 	x->so.count = 0;
 }
 
-void ll(void)
+void	ll(void)
 {
 	system("leaks cub3d");
 }
 
 int	main(int ac, char **av)
 {
-	t_data data;
-	t_map_data x;
-	atexit(ll);
+	t_data		data;
+	t_map_data	x;
+
 	init_map_data(&x);
 	if (ac == 2)
 	{

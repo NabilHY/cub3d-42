@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utilities4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:08:50 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/15 19:43:57 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	get_opposite_rgba(int rgba)
+int	o_rgba(int rgba)
 {
 	int	a;
 	int	opposite_r;
