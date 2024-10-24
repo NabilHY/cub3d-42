@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:08:27 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/13 13:05:04 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:38:59 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	increment_func(int *n)
+int	inc(int *n)
 {
 	*n = *n + 1;
 	return (1);

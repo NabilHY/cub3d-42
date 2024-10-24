@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:07:16 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/12 18:11:55 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:05:44 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,18 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-int	ft_atoi(char *s, int *error)
+int	ft_atoi(char *s, int *error, int i, int sign)
 {
-	int					i;
-	int					sign;
 	long long			num;
 
-	i = 0;
 	if (ft_fcmp(s, "-0") == 0 || ft_fcmp(s, "+0") == 0 || ft_fcmp(s, "0") == 0)
 		return (0);
+	while(s[i] == '0')
+		i++;
+	if(s[i] == '\0')
+		return (0);
+	i = 0;
 	num = 0;
-	sign = 1;
 	while ((s[i] >= 9 && s[i] <= 13) || s[i] == 32)
 		i++;
 	if (s[i] == '-' || s[i] == '+')
@@ -71,9 +72,7 @@ int	ft_atoi(char *s, int *error)
 			sign = -1;
 	}
 	while (s[i] >= '0' && s[i] <= '9')
-	{
 		num = num * 10 +(s[i++] - 48);
-	}
 	if (s[i] != '\0' || num == 0 || (num * sign) > 2147483647
 		|| (num * sign) < -2147483648)
 		*error = 1;

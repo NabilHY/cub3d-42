@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:06:07 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/02 21:18:30 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:55:18 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s,  int start, int len);
 int	ft_fcmp(const char *s1, const char *s2);
 int	ft_isdigit(int c);
-int	ft_atoi(char *s, int *error);
+int	ft_atoi(char *s, int *error, int i, int sign);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/15 21:42:03 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:24:35 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void init_map_data(t_map_data *x)
 {
-	x->ceiling.count = 0;
+	x->ceil.count = 0;
 	x->floor.count = 0;
-	x->ceiling.str = NULL;
+	x->ceil.str = NULL;
 	x->ea.str = NULL;
 	x->floor.str = NULL;
 	x->no.str = NULL;
@@ -30,14 +30,14 @@ void init_map_data(t_map_data *x)
 
 void ll(void)
 {
-	system("leaks cub3d");
+	system("leaks -q cub3d");
 }
 
 int	main(int ac, char **av)
 {
 	t_data data;
 	t_map_data x;
-	atexit(ll);
+	// atexit(ll);
 	init_map_data(&x);
 	if (ac == 2)
 	{

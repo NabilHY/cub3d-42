@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:50:58 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/15 21:41:50 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:27:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	test_floor_ceiling(char **line, char *flag, t_map_data *x)
 {
-	if (ft_fcmp(flag, "F") == 0 && increment_func(&x->floor.count))
+	if (ft_fcmp(flag, "F") == 0 && inc(&x->floor.count) && x->floor.count == 1)
 		x->floor.str = ft_strdup(line[1]);
-	if (ft_fcmp(flag, "C") == 0 && increment_func(&x->ceiling.count))
-		x->ceiling.str = ft_strdup(line[1]);
-	if (ft_fcmp(flag, "NO") == 0 && increment_func(&x->no.count))
+	if (ft_fcmp(flag, "C") == 0 && inc(&x->ceil.count) && x->ceil.count == 1)
+		x->ceil.str = ft_strdup(line[1]);
+	if (ft_fcmp(flag, "NO") == 0 && inc(&x->no.count) && x->no.count == 1)
 		x->no.str = ft_strdup(line[1]);
-	if (ft_fcmp(flag, "SO") == 0 && increment_func(&x->so.count))
+	if (ft_fcmp(flag, "SO") == 0 && inc(&x->so.count) && x->so.count == 1)
 		x->so.str = ft_strdup(line[1]);
-	if (ft_fcmp(flag, "WE") == 0 && increment_func(&x->we.count))
+	if (ft_fcmp(flag, "WE") == 0 && inc(&x->we.count) && x->we.count == 1)
 		x->we.str = ft_strdup(line[1]);
-	if (ft_fcmp(flag, "EA") == 0 && increment_func(&x->ea.count))
+	if (ft_fcmp(flag, "EA") == 0 && inc(&x->ea.count) && x->ea.count == 1)
 		x->ea.str = ft_strdup(line[1]);
 }
 
@@ -111,10 +111,11 @@ int	test_textures(t_data *data, int *index, t_map_data *x, int i)
 
 	state = 0;
 	i = sub_function(data, x, &state);
-	if (!x->ceiling.str || !x->floor.str || !x->no.str || !x->so.str
+
+	if (!x->ceil.str || !x->floor.str || !x->no.str || !x->so.str
 		|| !x->we.str || !x->ea.str || state > 0)
 		return (printf("bad map\n"), 1);
-	if (x->ceiling.count != 1 || x->floor.count != 1 || x->no.count != 1
+	if (x->ceil.count != 1 || x->floor.count != 1 || x->no.count != 1
 		|| x->so.count != 1 || x->we.count != 1 || x->ea.count != 1)
 		return (printf("duplicate data\n"), 1);
 	if (test_characters(data->file + i, x) == 1)

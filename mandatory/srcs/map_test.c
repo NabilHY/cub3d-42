@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/15 19:32:54 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:41:53 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,13 @@ int	test_map_validity(char *filename, t_data *data, t_map_data *x)
 	copy_file(filename, data, 0, 0);
 	if (test_textures(data, &i, x, 0) == 1)
 	{
-		printf("texrure test\n");
+		printf("texture test\n");
 		free_2d(data->file);
 		free(x->ea.str);
 		free(x->we.str);
 		free(x->so.str);
 		free(x->no.str);
-		free(x->ceiling.str);
+		free(x->ceil.str);
 		free(x->floor.str);
 		return (1);
 	}

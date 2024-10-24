@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 12:45:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/15 21:38:28 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:00:09 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	test_numbers(char **args, int *error, char *flag, t_map_data *x)
 	i = 0;
 	while (args[i])
 	{
-		num = ft_atoi(args[i], error);
+		num = ft_atoi(args[i], error, 0, 1);
 		if (*error != 0 || num < 0 || num > 255)
 			return (free_2d(args), 1);
 		if (ft_fcmp(flag, "F") == 0)
@@ -49,7 +49,7 @@ int	test_colors(char **line, char *flag, t_map_data *x, int i)
 		if (i == 3)
 		{
 			if (test_numbers(args, &error, flag, x) == 1)
-				return (/* free_2d(args), */ 1);
+				return (1);
 		}
 		else
 			return (printf("invalid argument for F/C\n"), free_2d(args), 1);

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:08:50 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/15 19:43:57 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:41:11 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_all(t_data *data, t_map_data *x)
 {
 	free_2d(data->map);
 	free_2d(data->file);
-	free(x->ceiling.str);
+	free(x->ceil.str);
 	free(x->floor.str);
 	free(x->so.str);
 	free(x->no.str);

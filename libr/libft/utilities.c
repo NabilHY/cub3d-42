@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 18:25:06 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/02 21:15:19 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:59:37 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,25 +173,13 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-// static int	space(int c)
-// {
-// 	if ((c >= 9 && c <= 13) || c == 32) 
-// 		return (1);
-// 	else
-// 		return (0);
-// }
-
-int	ft_atoi(char *s, int *error)
+int	ft_atoi(char *s, int *error, int i, int sign)
 {
-	int					i;
-	int					sign;
 	long long			num;
 
-	i = 0;
 	if (ft_fcmp(s, "-0") == 0 || ft_fcmp(s, "+0") == 0 || ft_fcmp(s, "0") == 0)
 		return (0);
 	num = 0;
-	sign = 1;
 	while ((s[i] >= 9 && s[i] <= 13) || s[i] == 32)
 		i++;
 	if (s[i] == '-' || s[i] == '+')

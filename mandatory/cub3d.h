@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/15 19:27:38 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:40:49 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_util
 typedef struct s_map_data
 {
 	t_util			floor;
-	t_util			ceiling;
+	t_util			ceil;
 	t_util			no;
 	t_util			so;
 	t_util			ea;
@@ -169,7 +169,7 @@ int	copy_file(char *filename, t_data *data, int i, int j);
 int					test_map_validity(char *filename, t_data *data,
 						t_map_data *x);
 void	free_2d(char **arr);
-int increment_func(int *n);
+int inc(int *n);
 int test_numbers(char **args, int *error, char *flag, t_map_data *x);
 int	test_colors(char **line, char *flag, t_map_data *x, int i);
 int	open_textures(char **line, char *flag, t_map_data *x);
