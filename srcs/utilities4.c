@@ -6,13 +6,13 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:08:50 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/17 21:41:11 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:13:17 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	get_opposite_rgba(int rgba)
+int	o_rgba(int rgba)
 {
 	int	a;
 	int	opposite_r;

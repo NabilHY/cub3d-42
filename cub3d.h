@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 15:57:41 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:11:49 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int	copy_file(char *filename, t_data *data, int i, int j);
 int					test_map_validity(char *filename, t_data *data,
 						t_map_data *x);
 void	free_2d(char **arr);
-int inc(int *n);
+int increment_func(int *n);
 int test_numbers(char **args, int *error, char *flag, t_map_data *x);
 int	test_colors(char **line, char *flag, t_map_data *x, int i);
 int	open_textures(char **line, char *flag, t_map_data *x);
@@ -177,6 +177,4 @@ int	another_function(char **copy, int *error, int height, int i);
 int	copy_map(t_data *data, int i, int j);
 void free_all(t_data *data, t_map_data *x);
 int test_comma(char *str);
-int test_texture_opening(t_data *data);
-
 #endif

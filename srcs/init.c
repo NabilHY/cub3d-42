@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:33:42 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 15:57:48 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:05:45 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,6 @@ void	player_position(t_data *data)
 	}
 	data->p_x += TILE_SIZE / 2;
 	data->p_y += TILE_SIZE / 2;
-}
-
-int test_texture_opening(t_data *data)
-{
-	if (!data->textureNO || !data->textureWE || !data->textureSO || !data->textureEA)
-		return (0);
-	return (1);
 }
 
 void	init_data(t_data *data, t_map_data x)

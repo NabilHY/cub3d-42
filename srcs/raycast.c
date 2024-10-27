@@ -3,53 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:05:57 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/13 13:09:22 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	set_direction(t_data *data)
+{
+	if (data->rot_angle > 0 && data->rot_angle < M_PI)
+		data->v_dire = UP;
+	else
+		data->v_dire = DOWN;
+	if ((data->rot_angle < 0.5 * M_PI) || (data->rot_angle > 1.5 * M_PI))
+		data->h_dire = RIGHT;
+	else
+		data->h_dire = LEFT;
+}
+
 void	render_wall(t_data *data, int column, double fov)
 {
-	double	wall_height;
-	double	projection_plane_distance;
-	double	y_begin;
-	double	y_end;
+	t_vline	coors;
 
-	projection_plane_distance = WIDTH / (2 * tan(fov / 2));
-	wall_height = (TILE_SIZE / data->distance) * projection_plane_distance;
-	y_begin = (HEIGHT / 2) - (wall_height / 2);
-	y_end = (HEIGHT / 2) + (wall_height / 2);
+	coors.projection_plane_distance = WIDTH / (2 * tan(fov / 2));
+	coors.wall_height = (TILE_SIZE / data->distance)
+		* coors.projection_plane_distance;
+	coors.y_begin = (int)((HEIGHT / 2) - (coors.wall_height / 2));
+	coors.y_end = (int)((HEIGHT / 2) + (coors.wall_height / 2));
 	if (!data->vertical_inter)
 	{
 		if (data->ray_v_dire == UP)
-			draw_vertical_line(data, column, (int)y_begin, (int)y_end,
-				data->textureNO);
+			draw_vertical_line(data, column, &coors, data->texture_no);
 		else
-			draw_vertical_line(data, column, (int)y_begin, (int)y_end,
-				data->textureSO);
+			draw_vertical_line(data, column, &coors, data->texture_so);
 		return ;
 	}
 	if (data->ray_h_dire == LEFT)
-		draw_vertical_line(data, column, (int)y_begin, (int)y_end,
-			data->textureWE);
+		draw_vertical_line(data, column, &coors, data->texture_we);
 	else
-		draw_vertical_line(data, column, (int)y_begin, (int)y_end,
-			data->textureEA);
+		draw_vertical_line(data, column, &coors, data->texture_ea);
 }
 
-void	draw_vertical_line(t_data *data, int x, int y_start, int y_end,
+void	draw_vertical_line(t_data *data, int x, t_vline *coors,
 		mlx_texture_t *texture)
 {
-	int			y;
-	double		texture_y;
-	double		step;
-	double		texture_pos;
-	double		texture_x;
-	uint32_t	color;
+	int		y;
+	double	texture_y;
+	double	texture_pos;
+	double	texture_x;
 
 	if (!data || !data->view || !texture)
 		return ;
@@ -57,19 +61,17 @@ void	draw_vertical_line(t_data *data, int x, int y_start, int y_end,
 		texture_x = fmod(data->p_x1, TILE_SIZE) / TILE_SIZE * texture->width;
 	else
 		texture_x = fmod(data->p_y1, TILE_SIZE) / TILE_SIZE * texture->width;
-	step = (double)texture->height / (y_end - y_start);
 	texture_pos = 0.0;
-	y = y_start;
+	y = coors->y_begin;
 	x = WIDTH - x - 1;
-	while (y++ <= y_end)
+	while (y++ <= coors->y_end)
 	{
 		texture_y = (int)texture_pos % texture->height;
 		if (y >= 0 && y < HEIGHT)
-		{
-			color = get_pixel_color(texture, (int)texture_x, (int)texture_y);
-			mlx_put_pixel(data->view, x, y, color);
-		}
-		texture_pos += step;
+			mlx_put_pixel(data->view, x, y, get_pixel_color(texture,
+					(int)texture_x, (int)texture_y));
+		texture_pos += (double)texture->height / (coors->y_end
+				- coors->y_begin);
 	}
 }
 

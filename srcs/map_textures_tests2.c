@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_textures_tests2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 12:45:33 by ael-maaz          #+#    #+#             */
+<<<<<<< HEAD:mandatory/srcs/map_textures_tests2.c
 /*   Updated: 2024/10/17 22:00:09 by ael-maaz         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
+>>>>>>> 55d2993d514c6f0538da5674bfe47966062bd30c:srcs/map_textures_tests2.c
 /*                                                                            */
 /* ************************************************************************** */
 
