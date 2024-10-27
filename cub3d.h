@@ -6,14 +6,14 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 16:11:49 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:40:28 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# include "../MLX42/include/MLX42/MLX42.h"
-# include "../libr/libr.h"
+# include "./MLX42/include/MLX42/MLX42.h"
+# include "./libr/libr.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -48,6 +48,14 @@ typedef struct s_map_data
 	int				fcolor[3];
 	int				ccolor[3];
 }					t_map_data;
+
+typedef struct s_vline
+{
+	double			wall_height;
+	double			projection_plane_distance;
+	int				y_begin;
+	int				y_end;
+}					t_vline;
 
 typedef struct s_data
 {
@@ -109,7 +117,7 @@ typedef struct s_points
 {
 	double			rad;
 	double			p_x1;
-	double			p_y1;
+	double			p_y1; 
 	double			dx;
 	double			dy;
 	double			x_inc;
@@ -119,22 +127,30 @@ typedef struct s_points
 	double			distance;
 }					t_points;
 
+typedef struct s_colors
+{
+	uint32_t		color;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b;
+	uint8_t			a;
+}					t_colors;
+
+void				player_mouvements(mlx_key_data_t keydata, t_data *data);
 void				render_method(t_data *data);
-void				map_render(t_data *data);
-double				scaling_value(double ival, double omin, double omax,
-						double imax);
 int					get_rgba(int r, int g, int b, int a);
 int					in_space(t_data *data);
-int					ray_in_corner(t_data *data, double p_x, double p_y);
 void				set_direction(t_data *data);
 int					point_is_wall(t_data *data, double x, double y);
 void				update_dire(t_data *data, double deg);
 void				put_background(t_data *data);
 void				cast_rays(t_data *data);
-void				draw_vertical_line(t_data *data, int x, int y_start,
-						int y_end, mlx_texture_t *texture);
+void				draw_vertical_line(t_data *data, int x, t_vline *coors,
+						mlx_texture_t *texture);
 void				set_intersections(t_data *data, double deg);
 double				normalized_angle(double deg);
+void				normalize_angle(t_data *data);
+
 int					has_wall(t_data *data, double x, double y);
 double				pethago_distance(double x2, double x1, double y2,
 						double y1);
@@ -155,26 +171,35 @@ char				*ft_strchr_split(const char *s, int c);
 char				*get_next_line(int fd);
 int					ncount(long n);
 char				*allocate(int *n, long *i);
-void				test_function(mlx_t *mlx);
 uint32_t			get_pixel_color(mlx_texture_t *texture, uint32_t x,
 						uint32_t y);
-						int	get_opposite_rgba(int rgba);
+int					o_rgba(int rgba);
 char				**ft_split(char const *s, char c);
 // bunda parsing
-int	ext_test(char *filename);
-int	ext_test2(char *filename);
-int	file_existance(char *filename);
-int	test_textures(t_data *data, int *index, t_map_data *x, int i);
-int	copy_file(char *filename, t_data *data, int i, int j);
+int					ext_test(char *filename);
+int					ext_test2(char *filename);
+int					file_existance(char *filename);
+int					test_textures(t_data *data, int *index, t_map_data *x,
+						int i);
+int					copy_file(char *filename, t_data *data, int i, int j);
 int					test_map_validity(char *filename, t_data *data,
 						t_map_data *x);
-void	free_2d(char **arr);
-int increment_func(int *n);
-int test_numbers(char **args, int *error, char *flag, t_map_data *x);
-int	test_colors(char **line, char *flag, t_map_data *x, int i);
-int	open_textures(char **line, char *flag, t_map_data *x);
-int	another_function(char **copy, int *error, int height, int i);
-int	copy_map(t_data *data, int i, int j);
-void free_all(t_data *data, t_map_data *x);
-int test_comma(char *str);
+void				free_2d(char **arr);
+int					inc(int *n);
+int					test_numbers(char **args, int *error, char *flag,
+						t_map_data *x);
+int					test_colors(char **line, char *flag, t_map_data *x, int i);
+int					open_textures(char **line, char *flag, t_map_data *x);
+int					another_function(char **copy, int *error, int height,
+						int i);
+int					copy_map(t_data *data, int i, int j);
+void				free_all(t_data *data, t_map_data *x);
+int					test_comma(char *str);
+int					test_texture_opening(t_data *data);
+// Intersections
+double				first_hor_intersection(t_data *data, double deg);
+double				first_ver_intersection(t_data *data, double deg);
+void				hor_intersections(t_data *data, double deg, int *hit_wall);
+void				ver_intersections(t_data *data, double deg, int *hit_wall);
+
 #endif

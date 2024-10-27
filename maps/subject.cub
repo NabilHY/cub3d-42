@@ -3,7 +3,6 @@ SO ./textures/wall1.png
 WE ./textures/wall1.png
 EA ./textures/wall1.png
 F 110,153,15 
-F 110,153,15 
 C 255,255,255
 
 

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:07:16 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/27 16:13:03 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:15:13 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	ft_atoi(char *s, int *error, int i, int sign)
 
 	if (ft_fcmp(s, "-0") == 0 || ft_fcmp(s, "+0") == 0 || ft_fcmp(s, "0") == 0)
 		return (0);
-	while(s[i] == '0')
+	while (s[i] == '0')
 		i++;
-	if(s[i] == '\0')
+	if (s[i] == '\0')
 		return (0);
 	i = 0;
 	num = 0;

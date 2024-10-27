@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/27 16:12:43 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:14:19 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	test_map_validity(char *filename, t_data *data, t_map_data *x)
 		free(x->we.str);
 		free(x->so.str);
 		free(x->no.str);
-		free(x->ceiling.str);
+		free(x->ceil.str);
 		free(x->floor.str);
 		return (1);
 	}

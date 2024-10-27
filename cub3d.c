@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 16:01:59 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:49:42 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void init_map_data(t_map_data *x)
 {
-	x->ceiling.count = 0;
+	x->ceil.count = 0;
 	x->floor.count = 0;
-	x->ceiling.str = NULL;
+	x->ceil.str = NULL;
 	x->ea.str = NULL;
 	x->floor.str = NULL;
 	x->no.str = NULL;
@@ -30,7 +30,7 @@ void init_map_data(t_map_data *x)
 
 void ll(void)
 {
-	system("leaks cub3d");
+	system("leaks cub3D");
 }
 
 int	main(int ac, char **av)
@@ -44,6 +44,8 @@ int	main(int ac, char **av)
 		if (test_map_validity(av[1], &data, &x) == 1)
 			return (1);
 		init_data(&data, x);
+		if(test_texture_opening(&data) == 1)
+			return(free_all(&data,&x), 1);
 		data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 		mlx_key_hook(data.mlx_ptr, keyhooks, (void *)&data);
 		mlx_cursor_hook(data.mlx_ptr, mouse_hook, (void *)&data);

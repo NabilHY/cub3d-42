@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_textures_tests.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:50:58 by ael-maaz          #+#    #+#             */
-<<<<<<< HEAD:mandatory/srcs/map_textures_tests.c
-/*   Updated: 2024/10/20 12:27:12 by ael-maaz         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
->>>>>>> 55d2993d514c6f0538da5674bfe47966062bd30c:srcs/map_textures_tests.c
+/*   Updated: 2024/10/27 16:15:36 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +111,6 @@ int	test_textures(t_data *data, int *index, t_map_data *x, int i)
 
 	state = 0;
 	i = sub_function(data, x, &state);
-
 	if (!x->ceil.str || !x->floor.str || !x->no.str || !x->so.str
 		|| !x->we.str || !x->ea.str || state > 0)
 		return (printf("bad map\n"), 1);
