@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/17 21:40:49 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 15:57:41 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,4 +177,6 @@ int	another_function(char **copy, int *error, int height, int i);
 int	copy_map(t_data *data, int i, int j);
 void free_all(t_data *data, t_map_data *x);
 int test_comma(char *str);
+int test_texture_opening(t_data *data);
+
 #endif

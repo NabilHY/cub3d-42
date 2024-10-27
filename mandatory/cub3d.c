@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/17 22:24:35 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/27 15:59:11 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	main(int ac, char **av)
 		if (test_map_validity(av[1], &data, &x) == 1)
 			return (1);
 		init_data(&data, x);
+		if(test_texture_opening(&data) == 0)
+			return (printf("bad png file\n"), 1);
 		data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 		mlx_key_hook(data.mlx_ptr, keyhooks, (void *)&data);
 		mlx_cursor_hook(data.mlx_ptr, mouse_hook, (void *)&data);
