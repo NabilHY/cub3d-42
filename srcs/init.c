@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:33:42 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 16:41:02 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:26:02 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	get_width(char **map)
 
 void	player_position(t_data *data)
 {
-	static int		i;
-	int				j;
-	char			**map;
+	static int	i;
+	int			j;
+	char		**map;
 
 	map = data->map;
 	while (map[i])
@@ -67,10 +67,10 @@ void	player_position(t_data *data)
 	data->p_y += TILE_SIZE / 2;
 }
 
-int test_texture_opening(t_data *data)
+int	test_texture_opening(t_data *data)
 {
-	if (!data->textureNO || !data->textureWE || !data->textureSO
-		|| !data->textureEA)
+	if (!data->texture_no || !data->texture_we || !data->texture_so
+		|| !data->texture_ea)
 	{
 		printf("invalid texture file\n");
 		return (1);
@@ -80,10 +80,10 @@ int test_texture_opening(t_data *data)
 
 void	init_data(t_data *data, t_map_data x)
 {
-	data->textureNO = mlx_load_png(x.no.str);
-	data->textureWE = mlx_load_png(x.we.str);
-	data->textureSO = mlx_load_png(x.so.str);
-	data->textureEA = mlx_load_png(x.ea.str);
+	data->texture_no = mlx_load_png(x.no.str);
+	data->texture_we = mlx_load_png(x.we.str);
+	data->texture_so = mlx_load_png(x.so.str);
+	data->texture_ea = mlx_load_png(x.ea.str);
 	player_position(data);
 	if (data->p_direction == 'W')
 		data->rot_angle = M_PI;

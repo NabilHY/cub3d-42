@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 16:40:28 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:44:43 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ typedef struct s_data
 {
 	mlx_image_t		*minimap;
 	mlx_image_t		*view;
-	mlx_texture_t	*textureNO;
-	mlx_texture_t	*textureWE;
-	mlx_texture_t	*textureSO;
-	mlx_texture_t	*textureEA;
+	mlx_texture_t	*texture_no;
+	mlx_texture_t	*texture_we;
+	mlx_texture_t	*texture_so;
+	mlx_texture_t	*texture_ea;
 	mlx_t			*mlx_ptr;
 	double			*dist;
 	char			**map;
@@ -117,7 +117,7 @@ typedef struct s_points
 {
 	double			rad;
 	double			p_x1;
-	double			p_y1; 
+	double			p_y1;
 	double			dx;
 	double			dy;
 	double			x_inc;

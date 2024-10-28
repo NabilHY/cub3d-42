@@ -1,5 +1,5 @@
 CC = cc
-FLAGS = -Wall -Wextra -Werror -O3 
+FLAGS = -Wall -Wextra -Werror -O3
 ENTRY = ./cub3d.c
 SRCS =	./srcs/init.c \
 ./srcs/map.c \
@@ -30,7 +30,7 @@ INCLUDE = ./cub3d.h
 MLX_MACOS = -framework Cocoa -framework OpenGL -framework IOKit
 MLX_INCLUDE = ./MLX42/include/MLX42.h
 MLX42_DIR = ./MLX42
-GLFW = -lglfw -L/Users/ael-maaz/.brew/opt/glfw/lib/
+GLFW = -lglfw -L/Users/nhayoun/.brew/opt/glfw/lib/
 MLX_AR = ./MLX42/build/libmlx42.a
 #FSANITIZE = -g -fsanitize=address
 LIBR = libr.a
@@ -56,7 +56,7 @@ $(MLX_AR): $(MLX42_DIR)
 	@cd MLX42 && cmake -B build && cmake --build build -j4 > /dev/null 2>&1
 	@echo "MLX42 has been successfully built." > /dev/null 2>&1
 
-$(NAME): $(MLX_AR) $(OBJS) $(INCLUDE)
+$(NAME): $(ENTRY) $(SRCS) $(MLX_AR) $(OBJS) $(INCLUDE)
 	@$(CC) $(FLAGS) -lm $(OBJS) -I$(INCLUDE) $(ENTRY) $(MLX_AR)  $(LIBR) $(GLFW) -o $(NAME)
 	@echo "Program Compiled successfully."
 clean:

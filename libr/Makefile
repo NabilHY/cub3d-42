@@ -35,7 +35,7 @@ SRCS = ./libft/ft_isascii.c \
 	./libft/ft_lstclear.c \
 	./libft/ft_lstiter.c \
 	./libft/ft_lstmap.c \
-	./libft/utilities.c 
+	./libft/utilities.c
 OBJS = $(SRCS:.c=.o)
 NAME = ../libr.a
 INCLUDE = .

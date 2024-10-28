@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 14:05:57 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 16:32:13 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:26:48 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void	render_wall(t_data *data, int column, double fov)
 	if (!data->vertical_inter)
 	{
 		if (data->ray_v_dire == UP)
-			draw_vertical_line(data, column, &coors, data->textureNO);
+			draw_vertical_line(data, column, &coors, data->texture_no);
 		else
-			draw_vertical_line(data, column, &coors, data->textureSO);
+			draw_vertical_line(data, column, &coors, data->texture_we);
 		return ;
 	}
 	if (data->ray_h_dire == LEFT)
-		draw_vertical_line(data, column, &coors, data->textureWE);
+		draw_vertical_line(data, column, &coors, data->texture_so);
 	else
-		draw_vertical_line(data, column, &coors, data->textureEA);
+		draw_vertical_line(data, column, &coors, data->texture_ea);
 }
 
 void	draw_vertical_line(t_data *data, int x, t_vline *coors,

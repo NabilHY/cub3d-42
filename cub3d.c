@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/27 16:49:42 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:44:15 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_map_data(t_map_data *x)
+void	init_map_data(t_map_data *x)
 {
 	x->ceil.count = 0;
 	x->floor.count = 0;
@@ -28,15 +28,16 @@ void init_map_data(t_map_data *x)
 	x->so.count = 0;
 }
 
-void ll(void)
+void	ll(void)
 {
 	system("leaks cub3D");
 }
 
 int	main(int ac, char **av)
 {
-	t_data data;
-	t_map_data x;
+	t_data		data;
+	t_map_data	x;
+
 	atexit(ll);
 	init_map_data(&x);
 	if (ac == 2)
@@ -44,8 +45,8 @@ int	main(int ac, char **av)
 		if (test_map_validity(av[1], &data, &x) == 1)
 			return (1);
 		init_data(&data, x);
-		if(test_texture_opening(&data) == 1)
-			return(free_all(&data,&x), 1);
+		if (test_texture_opening(&data) == 1)
+			return (free_all(&data, &x), 1);
 		data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 		mlx_key_hook(data.mlx_ptr, keyhooks, (void *)&data);
 		mlx_cursor_hook(data.mlx_ptr, mouse_hook, (void *)&data);

@@ -1,8 +1,8 @@
-NO ./textures/wall1.png
-SO ./textures/wall1.png
-WE ./textures/wall1.png
-EA ./textures/wall1.png
-F 110,153,15 
+NO ./textures/images.png
+SO ./textures/images.png
+WE ./textures/images.png
+EA ./textures/images.png
+F 110,153,15
 C 255,255,255
 
 
