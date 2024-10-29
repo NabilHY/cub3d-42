@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/28 12:44:43 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/29 18:43:53 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIDTH 600
-# define NOR 800
-# define HEIGHT 400
+# define WIDTH 1280
+# define NOR 1280
+# define HEIGHT 720
 # define TILE_SIZE 10
 # define RES 30
 # define LINE_HEIGHT 30
@@ -196,6 +196,7 @@ int					copy_map(t_data *data, int i, int j);
 void				free_all(t_data *data, t_map_data *x);
 int					test_comma(char *str);
 int					test_texture_opening(t_data *data);
+void				clone_map(t_data *data, int i);
 // Intersections
 double				first_hor_intersection(t_data *data, double deg);
 double				first_ver_intersection(t_data *data, double deg);

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/29 14:54:43 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:03:57 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	flood_fill(t_data *data, int x, int y, int *error)
 	{
 		if (data->copy[y][x] == ' ' || data->copy[y][x] == '0')
 		{
-				*error = 1;
+			*error = 1;
 			return ;
 		}
 	}
@@ -85,10 +85,10 @@ void	get_player_position(t_data *data, int i, int j, int *error)
 		i++;
 	}
 	if ((int)data->p_y == data->h_map - 1 || (int)data->p_y == 0 
-	|| (int)data->p_x == 0 
-	|| (int)data->p_x == ft_strlen(data->map[(int)data->p_y]) - 1)
+		|| (int)data->p_x == 0 
+		|| (int)data->p_x == ft_strlen(data->map[(int)data->p_y]) - 1)
 	{
-		printf("error in player position\n");
+		printf("Error\nError in player position\n");
 		*error = 1;
 	}
 }
@@ -96,25 +96,12 @@ void	get_player_position(t_data *data, int i, int j, int *error)
 int	parsing_test(t_data *data, int i, int j, int error)
 {
 	get_player_position(data, 0, 0, &error);
-	if(error == 1)
-		return (printf("fucked up map\n"), 1);
+	if (error == 1)
+		return (1);
 	data->copy = malloc(sizeof(char *) * (data->h_map + 1));
-	int k;
-	while (++i < data->h_map)
-	{
-		k = 0;
-		data->copy[i] = malloc(data->w_map + 1);
-		ft_memset(data->copy[i], ' ', data->w_map);
-		data->copy[i][data->w_map] = '\0';
-		while(data->map[i][k])
-		{
-			data->copy[i][k] = data->map[i][k];
-			k++;
-		}
-		//data->copy[i] = ft_strdup(data->map[i]);
-		//ft_strlcpy(data->copy[i], data->map[i], ft_strlen(data->map[i]));
-	}
-	data->copy[i] = NULL;
+	if (!data->copy)
+		return (printf("Error\nMalloc error\n"), 1);
+	clone_map(data, -1);
 	i = -1;
 	while (data->copy[++i])
 	{
@@ -122,15 +109,15 @@ int	parsing_test(t_data *data, int i, int j, int error)
 		while (data->copy[i][j] && data->copy[i][j] == ' ')
 			j++;
 		if (data->copy[i][j] == '\0')
-			return (printf("found empty line\n"), free_2d(data->copy), 1);
+			return (printf("Error\nFound empty line\n"), free_2d(data->copy), 1);
 	}
 	flood_fill(data, data->p_x, data->p_y, &error);
-	if(error == 1)
-		return (printf("fucked up map\n"), free_2d(data->copy), 1);
+	if (error == 1)
+		return (printf("Error\nFucked up map\n"), free_2d(data->copy), 1);
 	if (another_function(data->copy, &error, data->h_map, -1) == 1)
-		return (printf("fucked up map\n"), free_2d(data->copy), 1);
+		return (printf("Error\nFucked up map\n"), free_2d(data->copy), 1);
 	if (borders_check(data->copy, &error, data->h_map, -1) == 1 || error == 1)
-		return (printf("another fucked up map\n"), free_2d(data->copy), 1);
+		return (printf("Error\nAnother fucked up map\n"), free_2d(data->copy), 1);
 	return (free_2d(data->copy), 0);
 }
 
@@ -140,20 +127,15 @@ int	test_map_validity(char *filename, t_data *data, t_map_data *x)
 
 	i = 0;
 	if (ext_test(filename) == 0)
-		return (printf("failed in file extension\n"), 1);
+		return (printf("Error\nFailed in file extension\n"), 1);
 	if (file_existance(filename) == 1)
-		return (printf("failed in opening file\n"), 1);
+		return (printf("Error\nfailed in opening file\n"), 1);
 	copy_file(filename, data, 0, 0);
 	if (test_textures(data, &i, x, 0) == 1)
 	{
-		printf("texrure test\n");
 		free_2d(data->file);
-		free(x->ea.str);
-		free(x->we.str);
-		free(x->so.str);
-		free(x->no.str);
-		free(x->ceil.str);
-		free(x->floor.str);
+		(free(x->ea.str), free(x->we.str), free(x->so.str), free(x->no.str));
+		(free(x->ceil.str), free(x->floor.str));
 		return (1);
 	}
 	copy_map(data, i, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/29 11:29:44 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/29 18:47:28 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ void	init_map_data(t_map_data *x)
 	x->so.count = 0;
 }
 
-void	ll(void)
-{
-	system("leaks -q cub3D");
-}
-
 void	free_textures(t_data *data)
 {
 	if (data->texture_ea)
@@ -50,7 +45,6 @@ int	main(int ac, char **av)
 	t_data		data;
 	t_map_data	x;
 
-	//atexit(ll);
 	init_map_data(&x);
 	if (ac == 2)
 	{
@@ -67,5 +61,5 @@ int	main(int ac, char **av)
 		mlx_terminate(data.mlx_ptr);
 		return (0);
 	}
-	printf("wrong arguments\n");
+	printf("Error\nWrong arguments\n");
 }

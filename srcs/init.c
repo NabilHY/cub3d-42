@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:33:42 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/28 12:26:02 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/29 18:08:38 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	test_texture_opening(t_data *data)
 	if (!data->texture_no || !data->texture_we || !data->texture_so
 		|| !data->texture_ea)
 	{
-		printf("invalid texture file\n");
+		printf("Error\nInvalid texture file\n");
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:50:58 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/27 16:15:36 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:06:56 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ int	test_line(char **line, t_map_data *x, int *state, int i)
 		|| ft_fcmp(line[0], "EA") == 0 || ft_fcmp(line[0], "WE") == 0)
 	{
 		if (i != 2)
-			return (*state = 3, printf("wrong parameters\n"), 1);
+			return (*state = 3, printf("Error\nWrong parameters\n"), 1);
 		else
 		{
 			test_floor_ceiling(line, line[0], x);
 			if (test_colors(line, line[0], x, 0) == 1)
-				return (printf("failed test colors\n"), *state = 1, 1);
+				return (printf("Failed test colors\n"), *state = 1, 1);
 			if (open_textures(line, line[0], x) == 1)
-				return (printf("failed opening textures\n"), *state = 1, 1);
+				return (*state = 1, 1);
 			return (0);
 		}
 	}
@@ -111,14 +111,16 @@ int	test_textures(t_data *data, int *index, t_map_data *x, int i)
 
 	state = 0;
 	i = sub_function(data, x, &state);
+	if (state > 0)
+		return (1);
 	if (!x->ceil.str || !x->floor.str || !x->no.str || !x->so.str
-		|| !x->we.str || !x->ea.str || state > 0)
-		return (printf("bad map\n"), 1);
+		|| !x->we.str || !x->ea.str)
+		return (printf("Error\nBad map information\n"), 1);
 	if (x->ceil.count != 1 || x->floor.count != 1 || x->no.count != 1
 		|| x->so.count != 1 || x->we.count != 1 || x->ea.count != 1)
-		return (printf("duplicate data\n"), 1);
+		return (printf("Error\nDuplicate data\n"), 1);
 	if (test_characters(data->file + i, x) == 1)
-		return (printf("bad map\n"), 1);
+		return (printf("Error\nBad characters\n"), 1);
 	*index = i;
 	return (*index = i, 0);
 }

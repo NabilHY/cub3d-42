@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_pretests.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:09:58 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/29 17:47:36 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	open_file(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("couldnt open file\n");
+		printf("Error\nCouldnt open file\n");
 		exit(1);
 	}
 	return (fd);
@@ -103,12 +103,11 @@ int	copy_file(char *filename, t_data *data, int i, int j)
 		free(line);
 		i++;
 	}
-	free(line);
-	close(fd);
+	(free(line), close(fd));
 	fd = open_file(filename);
 	data->file = malloc(sizeof(char *) * (i + 1));
 	if (!data->file)
-		return (1);
+		return (printf("Error\nFailed Malloc"), exit(1), 1);
 	while (j < i)
 	{
 		data->file[j] = get_next_line(fd);

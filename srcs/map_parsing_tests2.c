@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:46:40 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/27 16:39:45 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:38:28 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,24 @@ int	copy_map(t_data *data, int i, int j)
 			max = ft_strlen(data->map[i]);
 	}
 	return (data->w_map = max, data->h_map = l, 0);
+}
+
+void	clone_map(t_data *data, int i)
+{
+	int	k;
+
+	k = 0;
+	while (++i < data->h_map)
+	{
+		k = 0;
+		data->copy[i] = malloc(data->w_map + 1);
+		ft_memset(data->copy[i], ' ', data->w_map);
+		data->copy[i][data->w_map] = '\0';
+		while (data->map[i][k])
+		{
+			data->copy[i][k] = data->map[i][k];
+			k++;
+		}
+	}
+	data->copy[i] = NULL;
 }
