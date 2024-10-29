@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/29 13:36:12 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:54:43 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,21 @@ int	parsing_test(t_data *data, int i, int j, int error)
 	if(error == 1)
 		return (printf("fucked up map\n"), 1);
 	data->copy = malloc(sizeof(char *) * (data->h_map + 1));
+	int k;
 	while (++i < data->h_map)
-		data->copy[i] = ft_strdup(data->map[i]);
+	{
+		k = 0;
+		data->copy[i] = malloc(data->w_map + 1);
+		ft_memset(data->copy[i], ' ', data->w_map);
+		data->copy[i][data->w_map] = '\0';
+		while(data->map[i][k])
+		{
+			data->copy[i][k] = data->map[i][k];
+			k++;
+		}
+		//data->copy[i] = ft_strdup(data->map[i]);
+		//ft_strlcpy(data->copy[i], data->map[i], ft_strlen(data->map[i]));
+	}
 	data->copy[i] = NULL;
 	i = -1;
 	while (data->copy[++i])
