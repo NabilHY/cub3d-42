@@ -1,5 +1,5 @@
 CC = cc
-FLAGS = -Wall -Wextra -Werror -O3
+FLAGS = -Wall -Wextra -Werror -O3 -g -fsanitize=address
 ENTRY = ./cub3d.c
 SRCS =	./srcs/init.c \
 ./srcs/map.c \

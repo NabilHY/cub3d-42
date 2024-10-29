@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:22:46 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/28 12:44:15 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/29 11:29:44 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,19 @@ void	init_map_data(t_map_data *x)
 
 void	ll(void)
 {
-	system("leaks cub3D");
+	system("leaks -q cub3D");
+}
+
+void	free_textures(t_data *data)
+{
+	if (data->texture_ea)
+		mlx_delete_texture(data->texture_ea);
+	if (data->texture_we)
+		mlx_delete_texture(data->texture_we);
+	if (data->texture_so)
+		mlx_delete_texture(data->texture_so);
+	if (data->texture_no)
+		mlx_delete_texture(data->texture_no);
 }
 
 int	main(int ac, char **av)
@@ -38,7 +50,7 @@ int	main(int ac, char **av)
 	t_data		data;
 	t_map_data	x;
 
-	atexit(ll);
+	//atexit(ll);
 	init_map_data(&x);
 	if (ac == 2)
 	{
@@ -46,7 +58,7 @@ int	main(int ac, char **av)
 			return (1);
 		init_data(&data, x);
 		if (test_texture_opening(&data) == 1)
-			return (free_all(&data, &x), 1);
+			return (free_all(&data, &x), free_textures(&data), 1);
 		data.mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3d", 1);
 		mlx_key_hook(data.mlx_ptr, keyhooks, (void *)&data);
 		mlx_cursor_hook(data.mlx_ptr, mouse_hook, (void *)&data);

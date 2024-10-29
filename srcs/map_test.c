@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/27 16:14:19 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:45:02 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	flood_fill(t_data *data, int x, int y, int *error)
 	else if (x == data->w_map - 1 || x == 0 || y == data->h_map - 1 || y == 0)
 	{
 		if (data->copy[y][x] == ' ' || data->copy[y][x] == '0')
-			*error = 1;
-		return ;
+		{
+				*error = 1;
+			return ;
+		}
 	}
 	if (data->copy[y][x] == '1')
 		return ;
