@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:17:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/29 11:45:02 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/10/29 13:23:02 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	borders_check(char **copy, int *error, int height, int i)
 	return (0);
 }
 
-void	get_player_position(t_data *data, int i, int j)
+void	get_player_position(t_data *data, int i, int j, int *error)
 {
 	while (data->map[i])
 	{
@@ -84,17 +84,23 @@ void	get_player_position(t_data *data, int i, int j)
 		}
 		i++;
 	}
+	if ((int)data->p_y == data->h_map - 1 || (int)data->p_y == 0 
+	|| (int)data->p_x == 0 
+	|| (int)data->p_x == ft_strlen(data->map[(int)data->p_y]) - 1)
+	{
+		printf("error in player position\n");
+		*error = 1;
+	}
 }
 
 int	parsing_test(t_data *data, int i, int j, int error)
 {
-	get_player_position(data, 0, 0);
+	get_player_position(data, 0, 0, &error);
+	if(error == 1)
+		return (printf("fucked up map\n"), 1);
 	data->copy = malloc(sizeof(char *) * (data->h_map + 1));
-	while (i < data->h_map)
-	{
+	while (++i < data->h_map)
 		data->copy[i] = ft_strdup(data->map[i]);
-		i++;
-	}
 	data->copy[i] = NULL;
 	i = -1;
 	while (data->copy[++i])
@@ -106,6 +112,8 @@ int	parsing_test(t_data *data, int i, int j, int error)
 			return (printf("found empty line\n"), free_2d(data->copy), 1);
 	}
 	flood_fill(data, data->p_x, data->p_y, &error);
+	if(error == 1)
+		return (printf("fucked up map\n"), free_2d(data->copy), 1);
 	if (another_function(data->copy, &error, data->h_map, -1) == 1)
 		return (printf("fucked up map\n"), free_2d(data->copy), 1);
 	if (borders_check(data->copy, &error, data->h_map, -1) == 1 || error == 1)
@@ -136,7 +144,7 @@ int	test_map_validity(char *filename, t_data *data, t_map_data *x)
 		return (1);
 	}
 	copy_map(data, i, 0);
-	if (parsing_test(data, 0, 0, 0) == 1)
+	if (parsing_test(data, -1, 0, 0) == 1)
 		return (free_all(data, x), 1);
 	return (0);
 }
