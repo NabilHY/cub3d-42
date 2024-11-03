@@ -5,11 +5,7 @@ SRCS = ./libft/ft_isascii.c \
 	./libft/ft_isdigit.c \
 	./libft/ft_isprint.c \
 	./libft/ft_isalnum.c \
-	./libft/ft_strlen.c \
 	./libft/ft_memset.c \
-	./libft/ft_bzero.c \
-	./libft/ft_memcpy.c \
-	./libft/ft_memmove.c \
 	./libft/ft_strlcpy.c \
 	./libft/ft_strlcat.c \
 	./libft/ft_toupper.c \
@@ -20,14 +16,10 @@ SRCS = ./libft/ft_isascii.c \
 	./libft/ft_memchr.c \
 	./libft/ft_memcmp.c \
 	./libft/ft_strnstr.c \
-	./libft/ft_atoi.c \
 	./libft/ft_itoa.c \
 	./libft/ft_calloc.c \
-	./libft/ft_strdup.c \
-	./libft/ft_substr.c \
 	./libft/ft_strjoin.c \
 	./libft/ft_strtrim.c \
-	./libft/ft_split.c \
 	./libft/ft_striteri.c \
 	./libft/ft_strmapi.c \
 	./libft/ft_putchar_fd.c \
@@ -43,8 +35,8 @@ SRCS = ./libft/ft_isascii.c \
 	./libft/ft_lstclear.c \
 	./libft/ft_lstiter.c \
 	./libft/ft_lstmap.c \
-	./gnl/get_next_line.c \
-	./gnl/get_next_line_utils.c
+	./libft/utilities.c \
+	./libft/utilities2.c
 OBJS = $(SRCS:.c=.o)
 NAME = ../libr.a
 INCLUDE = .
