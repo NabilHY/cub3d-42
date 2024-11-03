@@ -26,6 +26,8 @@ This project was developed collaboratively by:
 
 Raycasting is a rendering technique used to project a 2D representation into a 3D space. It involves casting rays from the player's viewpoint to determine visibility and depth, allowing for realistic visual effects in the rendered environment.
 
+![Alt Text](./maps/screencast.gif)
+
 ## Technology Stack
 
 - **Programming Language:** C
@@ -33,6 +35,19 @@ Raycasting is a rendering technique used to project a 2D representation into a 3
 - **Development Environment:** Linux/macOS
 
 ## Running the Project
+
+##### Note on Dependencies
+
+In order to run this project on your machine, you must have the mlx dependencies installed, including **GLFW**. 
+
+1. **Install GLFW** on your machine if it is not already installed.
+2. Change the directory located in `GLFW_MACOS` to point to the location where GLFW is installed.
+
+Check MLX42 Documentation for a walkthrough on how to install MLX dependencies
+	https://github.com/codam-coding-college/MLX42/
+
+Make sure all dependencies are correctly configured to ensure the project runs smoothly.
+
 
 To compile and run the project, follow these steps:
 
