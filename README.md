@@ -1,3 +1,4 @@
+
 # Cub3d - 42
 
 ## Project Overview
@@ -7,10 +8,18 @@ The RayCaster project is inspired by the legendary *Wolfenstein 3D*, the first t
 ## Contributors
 
 This project was developed collaboratively by:
-	**-> Nabil **
-	    intra: https://profile.intra.42.fr/users/nhayoun
-	    github: https://github.com/NabilHY
-	**-> Ahmed **
+	
+
+ - Nabil Hayoun:
+
+	  
+
+			intra: https://profile.intra.42.fr/users/nhayoun
+	       github: https://github.com/NabilHY
+	
+
+ - Ahmed Mazzouzi:
+
 		intra: https://profile.intra.42.fr/users/ael-maaz
 		github: https://github.com/SaladBunda
 
@@ -31,11 +40,17 @@ To compile and run the project, follow these steps:
 Navigate to the project directory.
 Run the following command based on your operating system:
 For Linux:
-    make linux
+   
+
+	    make linux
+
 For macOS:
-make macos
+
+	    make macos
+
 After successfully building the project, run the executable with a map of your choice:
-	./cub3D maps/textures/map.cub
+
+		./cub3D maps/textures/map.cub
 
 ## Makefile Instructions
 
@@ -51,19 +66,19 @@ The project includes a Makefile with rules tailored for both Linux and macOS env
 
 ### Project Structure
 
-srcs/: Contains the source files for the raycasting engine.
-includes/: Header files for function declarations and definitions.
-textures/: Directory for texture images used in the maze.
-maps/: Directory for .cub map files that define the maze layout.
+			srcs/: Contains the source files for the raycasting engine.
+			includes/: Header files for function declarations and definitions.
+			textures/: Directory for texture images used in the maze.
+			maps/: Directory for .cub map files that define the maze layout.
 
 ### Gameplay Instructions
 
 The player navigates through the maze using the keyboard:
 
-Arrow Keys: Look left and right.
-W, A, S, D: Move through the maze.
-ESC: Exit the game cleanly.
-Mouse: Rotate the viewpoint.
+			Arrow Keys: Look left and right.
+			W, A, S, D: Move through the maze.
+			ESC: Exit the game cleanly.
+			Mouse: Rotate the viewpoint.
 
 
 ### Map Format
@@ -74,20 +89,20 @@ Characters used:
 0: Empty space
 1: Wall
 N, S, E, W: Player start position and orientation
-Example Map
-bash
-Copy code
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-F 220,100,0
-C 225,30,0
-111111
-100101
-101001
-1100N1
-111111
+Example Map :
+
+    NO ./path_to_the_north_texture
+    SO ./path_to_the_south_texture
+    WE ./path_to_the_west_texture
+    EA ./path_to_the_east_texture
+    F 220,100,0
+    C 225,30,0
+
+    111111
+    100101
+    101001
+    1100N1
+    111111
 
 
 ### Features
@@ -99,3 +114,4 @@ C 225,30,0
 ### Conclusion
 
 The RayCaster project serves as an educational exercise in graphics programming, applying fundamental concepts of mathematics and algorithms to create an engaging 3D experience. The use of the mlx42 graphics library facilitates window management and rendering, enhancing the learning experience of developing a graphical application in C.
+
