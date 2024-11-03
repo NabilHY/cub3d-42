@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 22:08:50 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/27 16:13:17 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/11/03 10:02:12 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	o_rgba(int rgba)
 	int	opposite_b;
 
 	a = rgba & 0xFF;
-	opposite_r = 255 - (rgba >> 24) & 0xFF;
-	opposite_g = 255 - (rgba >> 16) & 0xFF;
-	opposite_b = 255 - (rgba >> 8) & 0xFF;
+	opposite_r = 255 -  ((rgba >> 24) & 0xFF);
+	opposite_g = 255 -  ((rgba >> 16) & 0xFF);
+	opposite_b = 255 - ((rgba >> 8) & 0xFF);
 	return (opposite_r << 24 | opposite_g << 16 | opposite_b << 8 | a);
 }
 

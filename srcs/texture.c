@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 19:31:29 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/10/23 19:37:18 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/11/03 10:01:19 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ uint32_t	get_pixel_color(mlx_texture_t *texture, uint32_t x, uint32_t y)
 	int			index;
 	t_colors	colors;
 
-	if (x < 0 || x >= texture->width || y < 0 || y >= texture->height)
+	if (x >= texture->width || y >= texture->height)
 		return (0);
 	index = (y * texture->width + x) * 4;
 	colors.r = texture->pixels[index + 1];

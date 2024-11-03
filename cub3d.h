@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 12:23:10 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/10/29 18:43:53 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:57:41 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIDTH 1280
-# define NOR 1280
-# define HEIGHT 720
+# define WIDTH 800
+# define NOR 800
+# define HEIGHT 600
 # define TILE_SIZE 10
 # define RES 30
 # define LINE_HEIGHT 30
