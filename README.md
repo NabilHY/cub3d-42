@@ -13,8 +13,7 @@ This project was developed collaboratively by:
  - Nabil Hayoun:
 
 	  
-
-			intra: https://profile.intra.42.fr/users/nhayoun
+	       intra: https://profile.intra.42.fr/users/nhayoun
 	       github: https://github.com/NabilHY
 	
 
